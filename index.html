@@ -3,85 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>En Mantenimiento</title>
+    <title>Lic. Daniela | Nutrición y Bienestar</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
+        :root {
+            --verde-principal: #2e7d32;
+            --verde-claro: #66bb6a;
+            --verde-suave: #e8f5e9;
+            --crema: #faf8f0;
+            --texto-oscuro: #263238;
+            --texto-claro: #546e7a;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #5a189a, #7b2cbf, #9d4edd);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-        }
-        .caja-mantenimiento {
-            background: #fff;
-            color: #333;
-            padding: 50px 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-            max-width: 500px;
-            width: 90%;
-        }
-        .icono {
-            font-size: 70px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #5a189a;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 18px;
+            background: var(--crema);
+            color: var(--texto-oscuro);
             line-height: 1.6;
-            color: #555;
-            margin-bottom: 10px;
         }
-        .mensaje-final {
-            font-weight: bold;
-            color: #7b2cbf;
-            margin-top: 15px;
+
+        /* CABECERA */
+        header {
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
         }
-        .barra {
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* MENÚ DE NAVEGACIÓN */
+        nav {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+            gap: 8px;
+        }
+
+        .menu li button {
+            background: transparent;
+            border: none;
+            padding: 12px 18px;
+            font-size: 1rem;
+            color: var(--texto-claro);
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .menu li button:hover,
+        .menu li button.activo {
+            background: var(--verde-principal);
+            color: white;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .seccion {
+            display: none;
+            animation: aparecer 0.4s ease-out;
+        }
+
+        .seccion.visible {
+            display: block;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--verde-principal);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--verde-suave);
+        }
+
+        /* TARJETAS Y BOTONES */
+        .tarjeta {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+        }
+
+        .fila-botones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .boton {
+            display: block;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .boton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .boton-verde {
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            color: white;
+        }
+
+        .boton-claro {
+            background: var(--verde-suave);
+            color: var(--verde-principal);
+            border: 2px solid var(--verde-claro);
+        }
+
+        /* FORMULARIO DE CITAS */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--texto-oscuro);
+        }
+
+        input, select, textarea {
             width: 100%;
-            height: 10px;
-            background: #e0cffc;
-            border-radius: 5px;
-            margin-top: 25px;
-            overflow: hidden;
+            padding: 12px 15px;
+            border: 2px solid #c8e6c9;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #ffffef;
         }
-        .llenado {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(90deg, #5a189a, #22c55e);
-            border-radius: 5px;
-            animation: cargando 2s ease-in-out infinite alternate;
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--verde-principal);
         }
-        @keyframes cargando {
-            from { width: 55%; }
-            to   { width: 85%; }
+
+        /* LISTA DE CITAS */
+        .cita {
+            background: var(--verde-suave);
+            border-left: 4px solid var(--verde-principal);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .cita .fecha {
+            font-weight: bold;
+            color: var(--verde-principal);
+        }
+
+        .btn-eliminar {
+            background: #ef5350;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* COMIDAS Y DIETAS */
+        .comida {
+            border-left: 4px solid #ffa726;
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .dieta {
+            border-left: 4px solid #42a5f5;
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            background: var(--verde-principal);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        .mensaje-exito {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- CABECERA -->
+    <header>
+        <h1>🥗 Licenciada Daniela</h1>
+        <p>Nutrición · Salud · Bienestar</p>
+    </header>
 
-    <div class="caja-mantenimiento">
-        <div class="icono">🚧</div>
-        <h1>Sitio en Mantenimiento</h1>
-        <p>Estamos trabajando para mejorar tu experiencia.</p>
-        <p>Hacemos lo mejor posible para que todo vuelva a funcionar pronto.</p>
-        <p class="mensaje-final">¡Gracias por tu paciencia!</p>
-        <div class="barra">
-            <div class="llenado"></div>
-        </div>
-    </div>
+    <!-- MENÚ -->
+    <nav>
+        <ul class="menu">
+            <li><button class="activo" onclick="mostrarSeccion('inicio')">🏠 Inicio</button></li>
+            <li><button onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button></li>
+            <li><button onclick="mostrarSeccion('mis-citas')">📋 Mis Citas</button></li>
+            <li><button onclick="mostrarSeccion('comidas')">🍽️ Comidas</button></li>
+            <li><button onclick="mostrarSeccion('dietas')">📝 Dietas</button></li>
+            <li><button onclick="mostrarSeccion('recetas')">🍳 Recetas</button></li>
+            <li><button onclick="mostrarSeccion('consejos')">💡 Consejos</button></li>
+            <li><button onclick="mostrarSeccion('contacto')">📞 Contacto</button></li>
+        </ul>
+    </nav>
 
+    <main class="contenedor">
+        <!-- INICIO -->
+        <section class="seccion visible" id="inicio">
+            <div class="tarjeta">
+                <h2>👋 Bienvenidos</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                    Soy la Licenciada Daniela, y mi compromiso es guiarte hacia una alimentación saludable y sostenible. No se trata de dejar de comer, sino de comer mejor 🌿
+                </p>
+                <p>Juntos crearemos un plan personalizado que se adapte a ti, a tus hábitos y a tus metas.</p>
+                
+                <div class="fila-botones">
+                    <button class="boton boton-verde" onclick="mostrarSeccion('agendar')">📅 Agendar una Cita</button>
+                    <button class="boton boton-claro" onclick="mostrarSeccion('consejos')">💡 Consejos Gratis</button>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <h2>✅ Servicios</h2>
+                <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">📋 Evaluación nutricional completa</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">🥗 Plan de alimentación personalizado</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">📊 Seguimiento y monitoreo</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">🍳 Recetas y guías prácticas</li>
+                    <li style="padding: 10px 0;">💬 Consultas presenciales y en línea</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- AGENDAR CITA -->
+        <section class="seccion" id="agendar">
+            <div class="tarjeta">
+                <h2>📅 Agendar tu Cita</h2>
+                <p style="margin-bottom: 20px;">Llena los datos y te confirmaré tu cita lo antes posible 💚</p>
+                
+                <form id="form-cita">
+                    <div class="form-group">
+                        <label for="nombre">Tu Nombre</label>
+                        <input type="text" id="nombre" placeholder="Escribe tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Teléfono / WhatsApp</label>
+                        <input type="tel" id="telefono" placeholder="Ej. 722 123 4567" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fecha">Fecha deseada</label>
+                        <input type="date" id="fecha" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hora">Hora</label>
+                        <select id="hora" required>
+                            <option value="">Selecciona una hora</option>
+                            <option>09:00 AM</option>
+                            <option>10:00 AM</option>
+                            <option>11:00 AM</option>
+                            <option>12:00 PM</option>
+                            <option>04:00 PM</option>
+                            <option>05:00 PM</option>
+                            <option>06:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo">Tipo de consulta</label>
+                        <select id="tipo">
+                            <option>Primera consulta</option>
+                            <option>Seguimiento</option>
+                            <option>Consulta en línea</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje">Comentarios o metas</label>
+                        <textarea id="mensaje" rows="3" placeholder="¿Qué quieres lograr?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="boton boton-verde">✅ Enviar Solicitud de Cita</button>
+                    
+                    <div class="mensaje-exito" id="confirmacion">
+                        ✅ ¡Solicitud enviada! Nos pondremos en contacto contigo pronto 💚
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- MIS CITAS -->
+        <section class="seccion" id="mis-citas">
+            <div class="tarjeta">
+                <h2>📋 Citas Agendadas</h2>
+                <p id="sin-citas" style="color: var(--texto-claro);">No tienes citas agendadas aún. ¡Agenda la tuya! 💚</p>
+                <div id="lista-citas"></div>
+            </div>
+        </section>
+
+        <!-- COMIDAS -->
+        <section class="seccion" id="comidas">
+            <div class="tarjeta">
+                <h2>🍽️ Guía de Comidas</h2>
+                <p style="margin-bottom: 20px;">Ideas para cada tiempo de comida 🌿</p>
+                
+                <div class="comida">
+                    <h3>🌅 Desayuno</h3>
+                    <p><strong>Opciones:</strong> Avena con fruta, huevo con verduras, pan integral con aguacate, yogur natural con nueces.</p>
+                    <p><strong>Consejo:</strong> Incluye siempre proteína para tener energía todo el día 💪</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>☀️ Comida</h3>
+                    <p><strong>Fórmula ideal:</strong> La mitad del plato verduras → 1/4 proteína → 1/4 carbohidratos integrales</p>
+                    <p><strong>Ejemplo:</strong> Pechuga de pollo, ensalada mixta y arroz integral 🍗🥗</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>🌙 Cena</h3>
+                    <p>Menos cantidad que la comida, ligera y temprano. Pescado, verduras, caldos, ensaladas completas.</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>🍎 Snacks Saludables</h3>
+                    <p>Fruta, nueces, zanahorias con hummus, gelatina sin azúcar, palomitas naturales 🌽</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIETAS -->
+        <section class="seccion" id="dietas">
+            <div class="tarjeta">
+                <h2>📝 Planes y Dietas</h2>
+                <p style="margin-bottom: 20px;">Planes generales — recuerda que lo ideal es uno personalizado 💚</p>
+                
+                <div class="dieta">
+                    <h3>⚖️ Plan para Control de Peso</h3>
+                    <p>• 5 comidas al día cada 3-4 horas</p>
+                    <p>• Reduce fritos, azúcares y ultraprocesados</p>
+                    <p>• Aumenta agua, verduras y fibra</p>
+                    <p>• Porciones controladas pero sin pasar hambre</p>
+                </div>
+                
+                <div class="dieta">
+                    <h3>💪 Plan para Ganar Masa Muscular</h3>
+                    <p>• Proteína en cada comida: pollo, huevo, pescado, legumbres</p>
+                    <p>• Carbohidratos de calidad: avena, papa, arroz integral</p>
+                    <p>• Comidas más frecuentes y abundantes</p>
+                    <p>• Suficiente agua y descanso</p>
+                </div>
+                
+                <div class="dieta">
+                    <h3>🩺 Plan Salud General</h3>
+                    <p>• Variedad de colores en tu plato 🌈</p>
+                    <p>• Menos sal y embutidos</p>
+                    <p>• Aceites saludables: oliva, aguacate</p>
+                    <p>• 2 litros de agua al día mínimo</p>
+                </div>
+                
+                <div class="fila-botones">
+                    <button class="boton boton-verde" onclick="mostrarSeccion('agendar')">📅 Quiero mi Plan Personalizado</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECETAS -->
+        <section class="seccion" id="recetas">
+            <div class="tarjeta">
+                <h2>🍳 Recetas Saludables</h2>
+                
+                <div class="comida">
+                    <h3>🥗 Ensalada Completa</h3>
+                    <p><strong>Ingredientes:</strong> Lechuga, espinaca, tomate, pepino, zanahoria, pollo a la plancha, semillas.</p>
+                    <p><strong>Aderezo:</strong> Limón, aceite de oliva, pimienta y poquita sal.</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>🍚 Arroz con Verduras</h3>
+                    <p><strong>Preparación:</strong> Sofríe cebolla, zanahoria y chayote. Agrega arroz integral y agua. Deja cocer. ¡Listo! ✨</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>🍎 Avena de la Mañana</h3>
+                    <p>Avena cocida con leche o agua + manzana picada + canela + un puñado de nueces. Energía pura ⚡</p>
+                </div>
+                
+                <div class="comida">
+                    <h3>🥤 Batido Verde</h3>
+                    <p>Espinaca + plátano + agua o leche + semillas de chía. Rico, nutritivo y rápido 🌿</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONSEJOS -->
+        <section class="seccion" id="consejos">
+            <div class="tarjeta">
+                <h2>💡 Consejos Diarios</h2>
+                <ul style="padding-left: 20px; font-size: 1.05rem;">
+                    <li style="margin: 15px 0;">💧 Toma agua antes de cada comida</li>
+                    <li style="margin: 15px 0;">⏰ Come despacio y mastica bien</li>
+                    <li style="margin: 15px 0;">🛒 Lleva tu propia comida si sales</li>
+                    <li style="margin: 15px 0;">🍖 No saltes comidas</li>
+                    <li style="margin: 15px 0;">📱 Come sin distracciones</li>
+                    <li style="margin: 15px 0;">💤 Duerme bien, ayuda a tu metabolismo</li>
+                    <li style="margin: 15px 0;">🚶 Muévete a diario, aunque sea caminar</li>
+                    <li style="margin: 15px 0;">🧘 No te culpes, cada día es una nueva oportunidad</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="seccion" id="contacto">
+            <div class="tarjeta">
+                <h2>📞 Contacto</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 10px;">📍 Toluca, Estado de México</p>
+                <p style="font-size: 1.1rem; margin-bottom: 10px;">📱 WhatsApp: <strong>pon aquí tu número</strong></p>
+                <p style="font-size: 1.1rem; margin-bottom: 10px;">📧 Correo: <strong>pon aquí tu correo</strong></p>
+                <p style="font-size: 1.1rem;">🕐 Horarios: Lun – Vie 9:00 AM – 7:00 PM</p>
+                
+                <div class="fila-botones" style="margin-top: 25px;">
+                    <a href="https://wa.me/" target="_blank" class="boton boton-verde">💬 Escribir por WhatsApp</a>
+                    <a href="mailto:" class="boton boton-claro">📧 Enviar Correo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE -->
+    <footer>
+        <p>© 2026 Licenciada Daniela — Nutrición y Bienestar 🌿</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; opacity: 0.8;">Comer bien es cuidarse 💚</p>
+    </footer>
+
+    <script>
+        // Cambiar de sección
+        function mostrarSeccion(id) {
+            // Ocultar todas
+            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('visible'));
+            // Mostrar la elegida
+            document.getElementById(id).classList.add('visible');
+            // Marcar botón activo
+            document.querySelectorAll('.menu button').forEach(b => b.classList.remove('activo'));
+            event.target.classList.add('activo');
+            // Subir al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Manejar formulario de citas
+        const form = document.getElementById('form-cita');
+        const listaCitas = document.getElementById('lista-citas');
+        const sinCitas = document.getElementById('sin-citas');
+        
+        // Cargar citas guardadas
+        let citas = JSON.parse(localStorage.getItem('citas-nutricion') || '[]');
+        renderizarCitas();
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nuevaCita = {
+                id: Date.now(),
+                nombre: document.getElementById('nombre').value,
+                telefono: document.getElementById('telefono').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value,
+                tipo: document.getElementById('tipo').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+            
+            citas.push(nuevaCita);
+            localStorage.setItem('citas-nutricion', JSON.stringify(citas));
+            
+            // Mostrar confirmación
+            document.getElementById('confirmacion').style.display = 'block';
+            form.reset();
+            renderizarCitas();
+            
+            setTimeout(() => {
+                document.getElementById('confirmacion').style.display = 'none';
+            }, 5000);
+        });
+
+        function renderizarCitas() {
+            if (citas.length > 0) {
+                sinCitas.style.display = 'none';
+                listaCitas.innerHTML = '';
+                citas.forEach(cita => {
+                    const div = document.createElement('div');
+                    div.className = 'cita';
+                    div.innerHTML = `
+                        <p class="fecha">📅 ${cita.fecha} — ${cita.hora}</p>
+                        <p><strong>Nombre:</strong> ${cita.nombre}</p>
+                        <p><strong>Teléfono:</strong> ${cita.telefono}</p>
+                        <p><strong>Tipo:</strong> ${cita.tipo}</p>
+                        ${cita.mensaje ? `<p><strong>Nota:</strong> ${cita.mensaje}</p>` : ''}
+                        <button class="btn-eliminar" onclick="eliminarCita(${cita.id})">🗑️ Cancelar</button>
+                    `;
+                    listaCitas.appendChild(div);
+                });
+            } else {
+                sinCitas.style.display = 'block';
+                listaCitas.innerHTML = '';
+            }
+        }
+
+        function eliminarCita(id) {
+            if (confirm('¿Seguro que quieres cancelar esta cita?')) {
+                citas = citas.filter(c => c.id !== id);
+                localStorage.setItem('citas-nutricion', JSON.stringify(citas));
+                renderizarCitas();
+            }
+        }
+    </script>
 </body>
 </html>

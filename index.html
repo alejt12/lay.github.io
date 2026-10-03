@@ -1,724 +1,87 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmiatría Laya | Lic. Laiza González Robles</title>
+    <title>En Mantenimiento</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; } 
-        :root {
-            --dorado: #D4AF37;
-            --rosa: #E91E8C;
-            --lila: #9C27B0;
-            --azul: #2196F3;
-            --verde: #4CAF50;
-            --whatsapp: #25D366;
-            --gris: #F5F5F5;
-            --texto: #333;
-            --sombra: 0 4px 15px rgba(0,0,0,0.1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { background: #FFF; color: var(--texto); line-height: 1.6; }
-
-        header {
-            background: linear-gradient(135deg, var(--rosa), var(--lila));
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-        header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
-        header p { font-size: 1.1rem; opacity: 0.95; }
-
-        .nav-botones {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            padding: 1.2rem;
-            background: white;
-            box-shadow: var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 99;
-        }
-        .btn {
-            padding: 11px 18px;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
-        .btn-dorado { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #2C2000; }
-        .btn-rosa { background: linear-gradient(135deg, #E91E8C, #FF6AB3); }
-        .btn-lila { background: linear-gradient(135deg, #9C27B0, #CE93D8); }
-        .btn-azul { background: linear-gradient(135deg, #2196F3, #64B5F6); }
-        .btn-verde { background: linear-gradient(135deg, #4CAF50, #81C784); }
-        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #52E085); }
-        .sin-numero { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
-
-        section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
-        section h2 {
-            text-align: center;
-            color: var(--lila);
-            margin-bottom: 1.8rem;
-            font-size: 1.7rem;
-            border-bottom: 3px solid var(--dorado);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            width: 100%;
-        }
-        .tarjeta {
-            background: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: var(--sombra);
-            margin-bottom: 1.5rem;
-        }
-        .lista-servicios { list-style: none; padding: 0; }
-        .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
-
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 18px;
-        }
-        .foto-item {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            position: relative;
-            background: var(--gris);
-            min-height: 200px;
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #5a189a, #7b2cbf, #9d4edd);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #fff;
         }
-        .foto-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .cita {
-            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-            border-left: 5px solid var(--azul);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-        }
-        .cita .estado {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-        .estado-pendiente { background: #FFF3CD; color: #856404; }
-        .estado-confirmada { background: #D4EDDA; color: #155724; }
-
-        .formulario-cita, .formulario-opinion {
-            background: #F8F0FC;
-            padding: 1.5rem;
-            border-radius: 14px;
-            margin-top: 1rem;
-        }
-        .formulario-opinion { background: #FFF8E1; }
-        .formulario-cita h3, .formulario-opinion h3 { text-align: center; color: var(--lila); margin-bottom: 1rem; }
-        .fila { display: flex; flex-wrap: wrap; gap: 10px; }
-        .campo { flex: 1; min-width: 140px; }
-        label { display: block; font-weight: 600; margin-bottom: 4px; color: #444; font-size: 0.9rem; }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #CCC;
-            font-size: 0.95rem;
-        }
-        textarea { resize: vertical; min-height: 90px; }
-
-        .estrellas { display: flex; gap: 8px; font-size: 32px; justify-content: center; margin: 10px 0; }
-        .estrella { cursor: pointer; color: #CCC; transition: color 0.2s; }
-        .estrella.activa { color: #FFD700; }
-
-        .opinion {
-            background: #FFF8E1;
-            border-left: 5px solid var(--dorado);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-        }
-        .opinion .estrellitas { font-size: 18px; color: #FFD700; }
-
-        .bandeja { background: #F3E5F5; border-radius: 12px; padding: 1rem; margin-top: 1rem; }
-
-        footer {
-            background: #2C2C2C;
-            color: white;
+        .caja-mantenimiento {
+            background: #fff;
+            color: #333;
+            padding: 50px 40px;
+            border-radius: 20px;
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+            max-width: 500px;
+            width: 90%;
         }
-        footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
-
-        .candado-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #222;
-            color: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-            z-index: 1000;
+        .icono {
+            font-size: 70px;
+            margin-bottom: 20px;
         }
-        .modal-fondo {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+        h1 {
+            color: #5a189a;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
-        .modal-caja {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            width: 92%;
-            max-width: 520px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
         }
-        .modal-caja h3 { text-align: center; margin-bottom: 1.2rem; color: var(--lila); }
-        .boton-cerrar {
-            background: #E53935;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.95rem;
-        }
-        .eliminar-elemento {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(0,0,0,0.65);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
+        .mensaje-final {
             font-weight: bold;
-            display: none;
+            color: #7b2cbf;
+            margin-top: 15px;
         }
-        .modo-admin .eliminar-elemento {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .barra {
+            width: 100%;
+            height: 10px;
+            background: #e0cffc;
+            border-radius: 5px;
+            margin-top: 25px;
+            overflow: hidden;
         }
-        .contenedor-relativo { position: relative; }
-        .solo-admin { display: none; }
-        .modo-admin .solo-admin { display: block; }
+        .llenado {
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(90deg, #5a189a, #22c55e);
+            border-radius: 5px;
+            animation: cargando 2s ease-in-out infinite alternate;
+        }
+        @keyframes cargando {
+            from { width: 55%; }
+            to   { width: 85%; }
+        }
     </style>
 </head>
 <body>
 
-<div class="candado-btn" onclick="abrirModal()">🔒</div>
-
-<div class="modal-fondo" id="modalLogin">
-    <div class="modal-caja">
-        <h3>🔐 Acceso de Administración</h3>
-        <p style="text-align:center; color:#666; font-size:0.9rem;">Solo la Lic. Laiza puede entrar</p>
-        <input type="password" id="clave" placeholder="Escribe la contraseña">
-        <button class="btn btn-lila" style="width:100%; margin-top:8px;" onclick="verificar()">Entrar al Panel</button>
-        <button class="boton-cerrar" onclick="cerrarModal()">Cerrar</button>
-    </div>
-</div>
-
-<div class="modal-fondo" id="panelAdmin">
-    <div class="modal-caja">
-        <h3>⚙️ Panel de Control — Cosmiatría Laya</h3>
-
-        <div>
-            <label>✏️ Editar Presentación (encabezado):</label>
-            <textarea id="editarBienvenida" rows="3" placeholder="Escribe aquí tu presentación..."></textarea>
-        </div>
-
-        <div>
-            <label>💆‍♀️ Editar Servicios (uno por línea):</label>
-            <textarea id="editarServicios" rows="6" placeholder="Limpieza facial profesional&#10;Hidratación y nutrición de piel..."></textarea>
-        </div>
-
-        <div>
-            <label>📸 Subir Foto de Trabajo:</label>
-            <input type="file" id="subirFoto" accept="image/*">
-            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar a Galería</button>
-        </div>
-
-        <div>
-            <label>🔗 Número de WhatsApp (solo números):</label>
-            <input type="text" id="numeroWhatsApp" placeholder="Ej: 521234567890">
-            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar Número</button>
-        </div>
-
-        <div>
-            <label>📍 Editar Contacto y Ubicación:</label>
-            <textarea id="editarContacto" rows="4" placeholder="Tu nombre y dirección..."></textarea>
-        </div>
-
-        <button class="btn btn-verde" style="width:100%; margin-top:14px;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
-        <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
-    </div>
-</div>
-
-<header id="seccionBienvenida">
-    <h1>✨ Cosmiatría Laya ✨</h1>
-    <p>Lic. Laiza González Robles</p>
-    <p id="textoBienvenida"><em>Belleza, cuidado y bienestar para tu piel</em></p>
-</header>
-
-<nav class="nav-botones">
-    <a href="#servicios" class="btn btn-rosa">💆‍♀️ Servicios</a>
-    <a href="#trabajos" class="btn btn-lila">📸 Trabajos</a>
-    <a href="#agendar" class="btn btn-azul">📅 Agendar Cita</a>
-    <a href="#opiniones" class="btn btn-dorado">⭐ Opiniones</a>
-    <a href="#contacto" class="btn btn-verde">📍 Contacto</a>
-    <a id="enlaceWhatsApp" href="#" target="_blank" class="btn btn-whatsapp sin-numero">💬 WhatsApp</a>
-</nav>
-
-<section id="servicios" class="tarjeta">
-    <h2>💆‍♀️ Nuestros Servicios</h2>
-    <ul id="listaServicios" class="lista-servicios">
-        <li>✅ Limpieza facial profesional</li>
-        <li>✅ Hidratación y nutrición de piel</li>
-        <li>✅ Tratamientos para pieles sensibles</li>
-        <li>✅ Asesoría personalizada de cuidado diario</li>
-        <li>✅ Y mucho más — ¡consúltame!</li>
-    </ul>
-</section>
-
-<section id="trabajos" class="tarjeta">
-    <h2>📸 Mis Trabajos</h2>
-    <div class="galeria" id="contenedorFotos">
-        <div class="foto-item contenedor-relativo">
-            <span style="color:#888;">Fotos que agregues aparecerán aquí</span>
-            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+    <div class="caja-mantenimiento">
+        <div class="icono">🚧</div>
+        <h1>Sitio en Mantenimiento</h1>
+        <p>Estamos trabajando para mejorar tu experiencia.</p>
+        <p>Hacemos lo mejor posible para que todo vuelva a funcionar pronto.</p>
+        <p class="mensaje-final">¡Gracias por tu paciencia!</p>
+        <div class="barra">
+            <div class="llenado"></div>
         </div>
     </div>
-</section>
 
-<section id="agendar" class="tarjeta">
-    <h2>📅 Agendar tu Cita</h2>
-
-    <div class="formulario-cita">
-        <h3>📝 Llena tus datos y elige tu fecha</h3>
-        <div class="fila">
-            <div class="campo">
-                <label>Tu Nombre</label>
-                <input type="text" id="clienteNombre" placeholder="Escribe tu nombre">
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="campo">
-                <label>Día</label>
-                <select id="clienteDia"></select>
-            </div>
-            <div class="campo">
-                <label>Mes</label>
-                <select id="clienteMes" onchange="actualizarDias()">
-                    <option value="0">Enero</option>
-                    <option value="1">Febrero</option>
-                    <option value="2">Marzo</option>
-                    <option value="3">Abril</option>
-                    <option value="4">Mayo</option>
-                    <option value="5">Junio</option>
-                    <option value="6">Julio</option>
-                    <option value="7">Agosto</option>
-                    <option value="8">Septiembre</option>
-                    <option value="9">Octubre</option>
-                    <option value="10">Noviembre</option>
-                    <option value="11">Diciembre</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Año</label>
-                <select id="clienteAnio" onchange="actualizarDias()"></select>
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="campo">
-                <label>Hora</label>
-                <select id="clienteHora">
-                    <option value="09:00">09:00 AM</option>
-                    <option value="09:30">09:30 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="10:30">10:30 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                    <option value="12:30">12:30 PM</option>
-                    <option value="13:00">01:00 PM</option>
-                    <option value="13:30">01:30 PM</option>
-                    <option value="14:00">02:00 PM</option>
-                    <option value="14:30">02:30 PM</option>
-                    <option value="15:00">03:00 PM</option>
-                    <option value="15:30">03:30 PM</option>
-                    <option value="16:00">04:00 PM</option>
-                    <option value="16:30">04:30 PM</option>
-                    <option value="17:00">05:00 PM</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Tratamiento</label>
-                <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
-            </div>
-        </div>
-
-        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="clienteAgendar()">✅ Enviar Cita</button>
-    </div>
-
-    <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
-    <div id="contenedorCitas">
-        <p style="color:#777; text-align:center;">Todavía no hay citas. ¡Sé el primero en agendar!</p>
-    </div>
-</section>
-
-<section id="opiniones" class="tarjeta">
-    <h2>⭐ Opiniones de Clientes</h2>
-
-    <div class="formulario-opinion">
-        <h3>💬 Deja tu opinión</h3>
-        <div class="fila">
-            <div class="campo">
-                <label>Tu Nombre</label>
-                <input type="text" id="opinionNombre" placeholder="Escribe tu nombre">
-            </div>
-            <div class="campo">
-                <label>Tu Correo Electrónico</label>
-                <input type="email" id="opinionCorreo" placeholder="correo@ejemplo.com">
-            </div>
-        </div>
-
-        <label style="text-align:center; display:block; margin-top:8px;">Calificación</label>
-        <div class="estrellas" id="contenedorEstrellas">
-            <span class="estrella" data-valor="1">★</span>
-            <span class="estrella" data-valor="2">★</span>
-            <span class="estrella" data-valor="3">★</span>
-            <span class="estrella" data-valor="4">★</span>
-            <span class="estrella" data-valor="5">★</span>
-        </div>
-        <input type="hidden" id="calificacion" value="0">
-
-        <div style="margin-top:10px;">
-            <label>Tu Comentario</label>
-            <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
-        </div>
-
-        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarOpinion()">⭐ Enviar Opinión</button>
-    </div>
-
-    <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
-    <div id="contenedorOpiniones">
-        <p style="color:#777; text-align:center;">Todavía no hay opiniones. ¡Sé el primero en opinar!</p>
-    </div>
-
-    <div class="bandeja solo-admin">
-        <h3 style="text-align:center; color:var(--lila); margin-bottom:1rem;">📩 Bandeja de Opiniones — Solo Laiza</h3>
-        <div id="bandejaOpiniones">
-            <p style="color:#777; text-align:center;">Aquí aparecen todas las opiniones con correo</p>
-        </div>
-    </div>
-</section>
-
-<section id="contacto" class="tarjeta">
-    <h2>📍 Ubicación y Contacto</h2>
-    <div id="textoContacto">
-        <p><strong>Lic. Laiza González Robles</strong></p>
-        <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a></p>
-        <p id="lineaWhatsApp">💬 WhatsApp: <em>Pendiente de configurar</em></p>
-        <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
-        <p>✉️ Escríbeme o agenda tu cita — ¡Te espero!</p>
-    </div>
-</section>
-
-<footer>
-    <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
-    <p><a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
-    <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
-</footer>
-
-<script>
-const CLAVE_CORRECTA = "laya2026";
-const ID_NUBE = "cosmiatria_laya_001";
-const NOMBRES_MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-let modoAdmin = false;
-let calificacionActual = 0;
-
-window.onload = function() {
-    inicializarFechas();
-    inicializarEstrellas();
-    cargarDesdeNube();
-};
-
-// === ESTRELLAS PARA CALIFICAR ===
-function inicializarEstrellas() {
-    const estrellas = document.querySelectorAll('.estrella');
-    estrellas.forEach(estrella => {
-        estrella.addEventListener('click', function() {
-            calificacionActual = parseInt(this.dataset.valor);
-            document.getElementById('calificacion').value = calificacionActual;
-            estrellas.forEach((e, i) => {
-                e.classList.toggle('activa', i < calificacionActual);
-            });
-        });
-        estrella.addEventListener('mouseover', function() {
-            const valor = parseInt(this.dataset.valor);
-            estrellas.forEach((e, i) => {
-                e.style.color = i < valor ? '#FFD700' : '#CCC';
-            });
-        });
-        estrella.addEventListener('mouseout', function() {
-            estrellas.forEach((e, i) => {
-                e.style.color = i < calificacionActual ? '#FFD700' : '#CCC';
-            });
-        });
-    });
-}
-
-function inicializarFechas() {
-    const anioActual = new Date().getFullYear();
-    const selectAnio = document.getElementById('clienteAnio');
-    selectAnio.innerHTML = `<option value="${anioActual}">${anioActual}</option><option value="${anioActual+1}">${anioActual+1}</option>`;
-    actualizarDias();
-}
-
-function actualizarDias() {
-    const mes = parseInt(document.getElementById('clienteMes').value);
-    const anio = parseInt(document.getElementById('clienteAnio').value);
-    const diasEnMes = new Date(anio, mes + 1, 0).getDate();
-    const selectDia = document.getElementById('clienteDia');
-    selectDia.innerHTML = '';
-    for (let d = 1; d <= diasEnMes; d++) {
-        const opt = document.createElement('option');
-        opt.value = d;
-        opt.textContent = d;
-        selectDia.appendChild(opt);
-    }
-}
-
-function abrirModal() { document.getElementById('modalLogin').style.display = 'flex'; document.getElementById('clave').value = ''; }
-function cerrarModal() { document.getElementById('modalLogin').style.display = 'none'; }
-function verificar() {
-    const clave = document.getElementById('clave').value;
-    if (clave === CLAVE_CORRECTA) {
-        cerrarModal();
-        modoAdmin = true;
-        document.body.classList.add('modo-admin');
-        abrirPanelAdmin();
-    } else { alert("❌ Contraseña incorrecta"); }
-}
-
-function abrirPanelAdmin() {
-    document.getElementById('panelAdmin').style.display = 'flex';
-    document.getElementById('editarBienvenida').value = document.getElementById('textoBienvenida').innerText;
-    let serviciosHTML = document.getElementById('listaServicios').innerHTML;
-    serviciosHTML = serviciosHTML.replace(/<li>/gi, '').replace(/<\/li>/gi, '\n').trim();
-    document.getElementById('editarServicios').value = serviciosHTML;
-    document.getElementById('editarContacto').value = document.getElementById('textoContacto').innerText;
-    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
-    document.getElementById('numeroWhatsApp').value = numero;
-}
-function cerrarPanel() { document.getElementById('panelAdmin').style.display = 'none'; modoAdmin = false; document.body.classList.remove('modo-admin'); }
-
-function guardarNumeroWhatsApp() {
-    let numero = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
-    localStorage.setItem(ID_NUBE + "_whatsapp", numero);
-    sincronizarNube();
-    actualizarBotonWhatsApp();
-    alert("✅ Número guardado");
-}
-function actualizarBotonWhatsApp() {
-    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
-    const enlace = document.getElementById('enlaceWhatsApp');
-    if (numero && numero.length >= 10) {
-        enlace.href = "https://wa.me/" + numero;
-        enlace.classList.remove('sin-numero');
-        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/" + numero + "' target='_blank'>" + numero + "</a>";
-    } else {
-        enlace.href = "#";
-        enlace.classList.add('sin-numero');
-        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <em>Pendiente de configurar</em>";
-    }
-}
-
-// === EL CLIENTE AGENDA SU CITA ===
-function clienteAgendar() {
-    const nombre = document.getElementById('clienteNombre').value.trim();
-    const dia = document.getElementById('clienteDia').value;
-    const mes = document.getElementById('clienteMes').value;
-    const nombreMes = NOMBRES_MESES[mes];
-    const anio = document.getElementById('clienteAnio').value;
-    const hora = document.getElementById('clienteHora').value;
-    const servicio = document.getElementById('clienteServicio').value.trim() || "Consulta general";
-
-    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
-
-    const contenedor = document.getElementById('contenedorCitas');
-    const vacio = contenedor.querySelector('p');
-    if (vacio) vacio.remove();
-
-    const div = document.createElement('div');
-    div.className = 'cita contenedor-relativo';
-    div.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar cita?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong><br>
-        📅 ${dia} de ${nombreMes} del ${anio}<br>
-        ⏰ ${hora} horas<br>
-        💆‍♀️ ${servicio}<br>
-        <span class="estado estado-pendiente">⏳ Pendiente de confirmar</span>
-    `;
-    contenedor.prepend(div);
-
-    document.getElementById('clienteNombre').value = '';
-    document.getElementById('clienteServicio').value = '';
-
-    sincronizarNube();
-    alert("✅ ¡Tu cita ha sido agendada! Gracias.");
-}
-
-// === EL CLIENTE ENVÍA SU OPINIÓN CON ESTRELLAS Y CORREO ===
-function enviarOpinion() {
-    const nombre = document.getElementById('opinionNombre').value.trim();
-    const correo = document.getElementById('opinionCorreo').value.trim();
-    const estrellas = calificacionActual;
-    const comentario = document.getElementById('opinionComentario').value.trim();
-
-    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
-    if (!correo.includes('@')) { alert("⚠️ Escribe un correo válido"); return; }
-    if (estrellas === 0) { alert("⚠️ Selecciona tu calificación con estrellas"); return; }
-    if (!comentario) { alert("⚠️ Escribe tu comentario"); return; }
-
-    const estrellitas = '★'.repeat(estrellas) + '☆'.repeat(5 - estrellas);
-    const fecha = new Date().toLocaleDateString('es-MX');
-
-    // Se ve en la página para todos
-    const contenedor = document.getElementById('contenedorOpiniones');
-    const vacio = contenedor.querySelector('p');
-    if (vacio) vacio.remove();
-
-    const tarjeta = document.createElement('div');
-    tarjeta.className = 'opinion contenedor-relativo';
-    tarjeta.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar opinión?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — ${fecha}<br>
-        <span class="estrellitas">${estrellitas}</span><br>
-        💬 ${comentario}
-    `;
-    contenedor.prepend(tarjeta);
-
-    // Se ve en la BANDEJA de Laiza (con correo)
-    const bandeja = document.getElementById('bandejaOpiniones');
-    const avisoVacio = bandeja.querySelector('p');
-    if (avisoVacio) avisoVacio.remove();
-
-    const correoCompleto = document.createElement('div');
-    correoCompleto.className = 'opinion contenedor-relativo';
-    correoCompleto.style.background = '#F3E5F5';
-    correoCompleto.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar de bandeja?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br>
-        <span class="estrellitas">${estrellitas}</span> — ${fecha}<br>
-        💬 ${comentario}
-    `;
-    bandeja.prepend(correoCompleto);
-
-    // Limpiar formulario
-    document.getElementById('opinionNombre').value = '';
-    document.getElementById('opinionCorreo').value = '';
-    document.getElementById('opinionComentario').value = '';
-    calificacionActual = 0;
-    document.querySelectorAll('.estrella').forEach(e => e.classList.remove('activa'));
-
-    sincronizarNube();
-    alert("✅ ¡Gracias por tu opinión! Se ha enviado correctamente.");
-}
-
-function agregarFoto() {
-    const entrada = document.getElementById('subirFoto');
-    if (!entrada.files.length) { alert("⚠️ Selecciona una imagen"); return; }
-    const archivo = entrada.files[0];
-    const lector = new FileReader();
-    lector.onload = function(e) {
-        const div = document.createElement('div');
-        div.className = 'foto-item contenedor-relativo';
-        div.innerHTML = `<img src="${e.target.result}" alt="Trabajo"><button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>`;
-        document.getElementById('contenedorFotos').prepend(div);
-        entrada.value = '';
-        sincronizarNube();
-    };
-    lector.readAsDataURL(archivo);
-}
-function quitarFoto(boton) { if (confirm("¿Eliminar foto?")) { boton.parentElement.remove(); sincronizarNube(); } }
-
-function guardarTodo() {
-    document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
-    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l => l.trim() !== '');
-    let html = '';
-    lineas.forEach(l => { html += `<li>${l.trim()}</li>`; });
-    document.getElementById('listaServicios').innerHTML = html;
-    document.getElementById('textoContacto').innerText = document.getElementById('editarContacto').value;
-    sincronizarNube();
-    alert("✅ ¡Todo guardado correctamente!");
-}
-
-function sincronizarNube() {
-    const datos = {
-        bienvenida: document.getElementById('textoBienvenida').innerText,
-        servicios: document.getElementById('listaServicios').innerHTML,
-        galeria: document.getElementById('contenedorFotos').innerHTML,
-        citas: document.getElementById('contenedorCitas').innerHTML,
-        opinionesPublicas: document.getElementById('contenedorOpiniones').innerHTML,
-        bandejaPrivada: document.getElementById('bandejaOpiniones').innerHTML,
-        contacto: document.getElementById('textoContacto').innerHTML,
-        ultimaActualizacion: new Date().toISOString()
-    };
-    localStorage.setItem(ID_NUBE, JSON.stringify(datos));
-}
-
-function cargarDesdeNube() {
-    const guardado = localStorage.getItem(ID_NUBE);
-    const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
-    if (numero) { actualizarBotonWhatsApp(); }
-    if (guardado) {
-        try {
-            const d = JSON.parse(guardado);
-            if (d.bienvenida) document.getElementById('textoBienvenida').innerText = d.bienvenida;
-            if (d.servicios) document.getElementById('listaServicios').innerHTML = d.servicios;
-            if (d.galeria) document.getElementById('contenedorFotos').innerHTML = d.galeria;
-            if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
-            if (d.opinionesPublicas) document.getElementById('contenedorOpiniones').innerHTML = d.opinionesPublicas;
-            if (d.bandejaPrivada) document.getElementById('bandejaOpiniones').innerHTML = d.bandejaPrivada;
-            if (d.contacto) document.getElementById('textoContacto').innerText = d.contacto;
-        } catch(e) {}
-    }
-}
-</script>
 </body>
 </html>

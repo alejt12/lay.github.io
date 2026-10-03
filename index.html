@@ -1,571 +1,724 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lic. Daniela | Nutrición y Bienestar</title>
+    <title>Cosmiatría Laya | Lic. Laiza González Robles</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        
         :root {
-            --verde-principal: #2e7d32;
-            --verde-claro: #66bb6a;
-            --verde-suave: #e8f5e9;
-            --crema: #faf8f0;
-            --texto-oscuro: #263238;
-            --texto-claro: #546e7a;
+            --dorado: #D4AF37;
+            --rosa: #E91E8C;
+            --lila: #9C27B0;
+            --azul: #2196F3;
+            --verde: #4CAF50;
+            --whatsapp: #25D366;
+            --gris: #F5F5F5;
+            --texto: #333;
+            --sombra: 0 4px 15px rgba(0,0,0,0.1);
         }
+        body { background: #FFF; color: var(--texto); line-height: 1.6; }
 
-        body {
-            background: var(--crema);
-            color: var(--texto-oscuro);
-            line-height: 1.6;
-        }
-
-        /* CABECERA */
         header {
-            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            background: linear-gradient(135deg, var(--rosa), var(--lila));
             color: white;
-            padding: 30px 20px;
+            padding: 2rem 1rem;
             text-align: center;
         }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.95; }
 
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* MENÚ DE NAVEGACIÓN */
-        nav {
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .menu {
-            list-style: none;
+        .nav-botones {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 10px;
-            gap: 8px;
+            gap: 10px;
+            padding: 1.2rem;
+            background: white;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 99;
         }
-
-        .menu li button {
-            background: transparent;
+        .btn {
+            padding: 11px 18px;
             border: none;
-            padding: 12px 18px;
-            font-size: 1rem;
-            color: var(--texto-claro);
-            cursor: pointer;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .menu li button:hover,
-        .menu li button.activo {
-            background: var(--verde-principal);
+            border-radius: 30px;
             color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+        .btn-dorado { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #2C2000; }
+        .btn-rosa { background: linear-gradient(135deg, #E91E8C, #FF6AB3); }
+        .btn-lila { background: linear-gradient(135deg, #9C27B0, #CE93D8); }
+        .btn-azul { background: linear-gradient(135deg, #2196F3, #64B5F6); }
+        .btn-verde { background: linear-gradient(135deg, #4CAF50, #81C784); }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #52E085); }
+        .sin-numero { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
 
-        /* CONTENEDOR PRINCIPAL */
-        .contenedor {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 20px;
+        section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+        section h2 {
+            text-align: center;
+            color: var(--lila);
+            margin-bottom: 1.8rem;
+            font-size: 1.7rem;
+            border-bottom: 3px solid var(--dorado);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            width: 100%;
         }
-
-        .seccion {
-            display: none;
-            animation: aparecer 0.4s ease-out;
-        }
-
-        .seccion.visible {
-            display: block;
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            color: var(--verde-principal);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--verde-suave);
-        }
-
-        /* TARJETAS Y BOTONES */
         .tarjeta {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: var(--sombra);
+            margin-bottom: 1.5rem;
         }
+        .lista-servicios { list-style: none; padding: 0; }
+        .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
 
-        .fila-botones {
+        .galeria {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 18px;
         }
-
-        .boton {
-            display: block;
-            padding: 15px 20px;
-            border: none;
+        .foto-item {
             border-radius: 12px;
-            font-size: 1rem;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            position: relative;
+            background: var(--gris);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .foto-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cita {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border-left: 5px solid var(--azul);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+        }
+        .cita .estado {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
+            margin-top: 5px;
         }
+        .estado-pendiente { background: #FFF3CD; color: #856404; }
+        .estado-confirmada { background: #D4EDDA; color: #155724; }
 
-        .boton:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        .formulario-cita, .formulario-opinion {
+            background: #F8F0FC;
+            padding: 1.5rem;
+            border-radius: 14px;
+            margin-top: 1rem;
         }
-
-        .boton-verde {
-            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
-            color: white;
-        }
-
-        .boton-claro {
-            background: var(--verde-suave);
-            color: var(--verde-principal);
-            border: 2px solid var(--verde-claro);
-        }
-
-        /* FORMULARIO DE CITAS */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--texto-oscuro);
-        }
-
+        .formulario-opinion { background: #FFF8E1; }
+        .formulario-cita h3, .formulario-opinion h3 { text-align: center; color: var(--lila); margin-bottom: 1rem; }
+        .fila { display: flex; flex-wrap: wrap; gap: 10px; }
+        .campo { flex: 1; min-width: 140px; }
+        label { display: block; font-weight: 600; margin-bottom: 4px; color: #444; font-size: 0.9rem; }
         input, select, textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #c8e6c9;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #CCC;
+            font-size: 0.95rem;
+        }
+        textarea { resize: vertical; min-height: 90px; }
+
+        .estrellas { display: flex; gap: 8px; font-size: 32px; justify-content: center; margin: 10px 0; }
+        .estrella { cursor: pointer; color: #CCC; transition: color 0.2s; }
+        .estrella.activa { color: #FFD700; }
+
+        .opinion {
+            background: #FFF8E1;
+            border-left: 5px solid var(--dorado);
+            padding: 1rem;
             border-radius: 10px;
-            font-size: 1rem;
-            background: #ffffef;
+            margin-bottom: 0.8rem;
         }
+        .opinion .estrellitas { font-size: 18px; color: #FFD700; }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--verde-principal);
-        }
+        .bandeja { background: #F3E5F5; border-radius: 12px; padding: 1rem; margin-top: 1rem; }
 
-        /* LISTA DE CITAS */
-        .cita {
-            background: var(--verde-suave);
-            border-left: 4px solid var(--verde-principal);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-
-        .cita .fecha {
-            font-weight: bold;
-            color: var(--verde-principal);
-        }
-
-        .btn-eliminar {
-            background: #ef5350;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        /* COMIDAS Y DIETAS */
-        .comida {
-            border-left: 4px solid #ffa726;
-            background: #fff8e1;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-
-        .dieta {
-            border-left: 4px solid #42a5f5;
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-
-        /* PIE DE PÁGINA */
         footer {
-            background: var(--verde-principal);
+            background: #2C2C2C;
             color: white;
             text-align: center;
-            padding: 25px;
-            margin-top: 40px;
+            padding: 2rem;
+            margin-top: 2rem;
         }
+        footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
 
-        .mensaje-exito {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            color: #2e7d32;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
+        .candado-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #222;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            z-index: 1000;
+        }
+        .modal-fondo {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-caja {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 92%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+        .modal-caja h3 { text-align: center; margin-bottom: 1.2rem; color: var(--lila); }
+        .boton-cerrar {
+            background: #E53935;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        .eliminar-elemento {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0,0,0,0.65);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-weight: bold;
             display: none;
         }
+        .modo-admin .eliminar-elemento {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contenedor-relativo { position: relative; }
+        .solo-admin { display: none; }
+        .modo-admin .solo-admin { display: block; }
     </style>
 </head>
 <body>
-    <!-- CABECERA -->
-    <header>
-        <h1>🥗 Licenciada Daniela</h1>
-        <p>Nutrición · Salud · Bienestar</p>
-    </header>
 
-    <!-- MENÚ -->
-    <nav>
-        <ul class="menu">
-            <li><button class="activo" onclick="mostrarSeccion('inicio')">🏠 Inicio</button></li>
-            <li><button onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button></li>
-            <li><button onclick="mostrarSeccion('mis-citas')">📋 Mis Citas</button></li>
-            <li><button onclick="mostrarSeccion('comidas')">🍽️ Comidas</button></li>
-            <li><button onclick="mostrarSeccion('dietas')">📝 Dietas</button></li>
-            <li><button onclick="mostrarSeccion('recetas')">🍳 Recetas</button></li>
-            <li><button onclick="mostrarSeccion('consejos')">💡 Consejos</button></li>
-            <li><button onclick="mostrarSeccion('contacto')">📞 Contacto</button></li>
-        </ul>
-    </nav>
+<div class="candado-btn" onclick="abrirModal()">🔒</div>
 
-    <main class="contenedor">
-        <!-- INICIO -->
-        <section class="seccion visible" id="inicio">
-            <div class="tarjeta">
-                <h2>👋 Bienvenidos</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                    Soy la Licenciada Daniela, y mi compromiso es guiarte hacia una alimentación saludable y sostenible. No se trata de dejar de comer, sino de comer mejor 🌿
-                </p>
-                <p>Juntos crearemos un plan personalizado que se adapte a ti, a tus hábitos y a tus metas.</p>
-                
-                <div class="fila-botones">
-                    <button class="boton boton-verde" onclick="mostrarSeccion('agendar')">📅 Agendar una Cita</button>
-                    <button class="boton boton-claro" onclick="mostrarSeccion('consejos')">💡 Consejos Gratis</button>
-                </div>
+<div class="modal-fondo" id="modalLogin">
+    <div class="modal-caja">
+        <h3>🔐 Acceso de Administración</h3>
+        <p style="text-align:center; color:#666; font-size:0.9rem;">Solo la Lic. Laiza puede entrar</p>
+        <input type="password" id="clave" placeholder="Escribe la contraseña">
+        <button class="btn btn-lila" style="width:100%; margin-top:8px;" onclick="verificar()">Entrar al Panel</button>
+        <button class="boton-cerrar" onclick="cerrarModal()">Cerrar</button>
+    </div>
+</div>
+
+<div class="modal-fondo" id="panelAdmin">
+    <div class="modal-caja">
+        <h3>⚙️ Panel de Control — Cosmiatría Laya</h3>
+
+        <div>
+            <label>✏️ Editar Presentación (encabezado):</label>
+            <textarea id="editarBienvenida" rows="3" placeholder="Escribe aquí tu presentación..."></textarea>
+        </div>
+
+        <div>
+            <label>💆‍♀️ Editar Servicios (uno por línea):</label>
+            <textarea id="editarServicios" rows="6" placeholder="Limpieza facial profesional&#10;Hidratación y nutrición de piel..."></textarea>
+        </div>
+
+        <div>
+            <label>📸 Subir Foto de Trabajo:</label>
+            <input type="file" id="subirFoto" accept="image/*">
+            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar a Galería</button>
+        </div>
+
+        <div>
+            <label>🔗 Número de WhatsApp (solo números):</label>
+            <input type="text" id="numeroWhatsApp" placeholder="Ej: 521234567890">
+            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar Número</button>
+        </div>
+
+        <div>
+            <label>📍 Editar Contacto y Ubicación:</label>
+            <textarea id="editarContacto" rows="4" placeholder="Tu nombre y dirección..."></textarea>
+        </div>
+
+        <button class="btn btn-verde" style="width:100%; margin-top:14px;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
+        <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
+    </div>
+</div>
+
+<header id="seccionBienvenida">
+    <h1>✨ Cosmiatría Laya ✨</h1>
+    <p>Lic. Laiza González Robles</p>
+    <p id="textoBienvenida"><em>Belleza, cuidado y bienestar para tu piel</em></p>
+</header>
+
+<nav class="nav-botones">
+    <a href="#servicios" class="btn btn-rosa">💆‍♀️ Servicios</a>
+    <a href="#trabajos" class="btn btn-lila">📸 Trabajos</a>
+    <a href="#agendar" class="btn btn-azul">📅 Agendar Cita</a>
+    <a href="#opiniones" class="btn btn-dorado">⭐ Opiniones</a>
+    <a href="#contacto" class="btn btn-verde">📍 Contacto</a>
+    <a id="enlaceWhatsApp" href="#" target="_blank" class="btn btn-whatsapp sin-numero">💬 WhatsApp</a>
+</nav>
+
+<section id="servicios" class="tarjeta">
+    <h2>💆‍♀️ Nuestros Servicios</h2>
+    <ul id="listaServicios" class="lista-servicios">
+        <li>✅ Limpieza facial profesional</li>
+        <li>✅ Hidratación y nutrición de piel</li>
+        <li>✅ Tratamientos para pieles sensibles</li>
+        <li>✅ Asesoría personalizada de cuidado diario</li>
+        <li>✅ Y mucho más — ¡consúltame!</li>
+    </ul>
+</section>
+
+<section id="trabajos" class="tarjeta">
+    <h2>📸 Mis Trabajos</h2>
+    <div class="galeria" id="contenedorFotos">
+        <div class="foto-item contenedor-relativo">
+            <span style="color:#888;">Fotos que agregues aparecerán aquí</span>
+            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+        </div>
+    </div>
+</section>
+
+<section id="agendar" class="tarjeta">
+    <h2>📅 Agendar tu Cita</h2>
+
+    <div class="formulario-cita">
+        <h3>📝 Llena tus datos y elige tu fecha</h3>
+        <div class="fila">
+            <div class="campo">
+                <label>Tu Nombre</label>
+                <input type="text" id="clienteNombre" placeholder="Escribe tu nombre">
             </div>
+        </div>
 
-            <div class="tarjeta">
-                <h2>✅ Servicios</h2>
-                <ul style="list-style: none; padding: 0; margin-top: 15px;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">📋 Evaluación nutricional completa</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">🥗 Plan de alimentación personalizado</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">📊 Seguimiento y monitoreo</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">🍳 Recetas y guías prácticas</li>
-                    <li style="padding: 10px 0;">💬 Consultas presenciales y en línea</li>
-                </ul>
+        <div class="fila">
+            <div class="campo">
+                <label>Día</label>
+                <select id="clienteDia"></select>
             </div>
-        </section>
-
-        <!-- AGENDAR CITA -->
-        <section class="seccion" id="agendar">
-            <div class="tarjeta">
-                <h2>📅 Agendar tu Cita</h2>
-                <p style="margin-bottom: 20px;">Llena los datos y te confirmaré tu cita lo antes posible 💚</p>
-                
-                <form id="form-cita">
-                    <div class="form-group">
-                        <label for="nombre">Tu Nombre</label>
-                        <input type="text" id="nombre" placeholder="Escribe tu nombre" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefono">Teléfono / WhatsApp</label>
-                        <input type="tel" id="telefono" placeholder="Ej. 722 123 4567" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fecha">Fecha deseada</label>
-                        <input type="date" id="fecha" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="hora">Hora</label>
-                        <select id="hora" required>
-                            <option value="">Selecciona una hora</option>
-                            <option>09:00 AM</option>
-                            <option>10:00 AM</option>
-                            <option>11:00 AM</option>
-                            <option>12:00 PM</option>
-                            <option>04:00 PM</option>
-                            <option>05:00 PM</option>
-                            <option>06:00 PM</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="tipo">Tipo de consulta</label>
-                        <select id="tipo">
-                            <option>Primera consulta</option>
-                            <option>Seguimiento</option>
-                            <option>Consulta en línea</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="mensaje">Comentarios o metas</label>
-                        <textarea id="mensaje" rows="3" placeholder="¿Qué quieres lograr?"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="boton boton-verde">✅ Enviar Solicitud de Cita</button>
-                    
-                    <div class="mensaje-exito" id="confirmacion">
-                        ✅ ¡Solicitud enviada! Nos pondremos en contacto contigo pronto 💚
-                    </div>
-                </form>
+            <div class="campo">
+                <label>Mes</label>
+                <select id="clienteMes" onchange="actualizarDias()">
+                    <option value="0">Enero</option>
+                    <option value="1">Febrero</option>
+                    <option value="2">Marzo</option>
+                    <option value="3">Abril</option>
+                    <option value="4">Mayo</option>
+                    <option value="5">Junio</option>
+                    <option value="6">Julio</option>
+                    <option value="7">Agosto</option>
+                    <option value="8">Septiembre</option>
+                    <option value="9">Octubre</option>
+                    <option value="10">Noviembre</option>
+                    <option value="11">Diciembre</option>
+                </select>
             </div>
-        </section>
-
-        <!-- MIS CITAS -->
-        <section class="seccion" id="mis-citas">
-            <div class="tarjeta">
-                <h2>📋 Citas Agendadas</h2>
-                <p id="sin-citas" style="color: var(--texto-claro);">No tienes citas agendadas aún. ¡Agenda la tuya! 💚</p>
-                <div id="lista-citas"></div>
+            <div class="campo">
+                <label>Año</label>
+                <select id="clienteAnio" onchange="actualizarDias()"></select>
             </div>
-        </section>
+        </div>
 
-        <!-- COMIDAS -->
-        <section class="seccion" id="comidas">
-            <div class="tarjeta">
-                <h2>🍽️ Guía de Comidas</h2>
-                <p style="margin-bottom: 20px;">Ideas para cada tiempo de comida 🌿</p>
-                
-                <div class="comida">
-                    <h3>🌅 Desayuno</h3>
-                    <p><strong>Opciones:</strong> Avena con fruta, huevo con verduras, pan integral con aguacate, yogur natural con nueces.</p>
-                    <p><strong>Consejo:</strong> Incluye siempre proteína para tener energía todo el día 💪</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>☀️ Comida</h3>
-                    <p><strong>Fórmula ideal:</strong> La mitad del plato verduras → 1/4 proteína → 1/4 carbohidratos integrales</p>
-                    <p><strong>Ejemplo:</strong> Pechuga de pollo, ensalada mixta y arroz integral 🍗🥗</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>🌙 Cena</h3>
-                    <p>Menos cantidad que la comida, ligera y temprano. Pescado, verduras, caldos, ensaladas completas.</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>🍎 Snacks Saludables</h3>
-                    <p>Fruta, nueces, zanahorias con hummus, gelatina sin azúcar, palomitas naturales 🌽</p>
-                </div>
+        <div class="fila">
+            <div class="campo">
+                <label>Hora</label>
+                <select id="clienteHora">
+                    <option value="09:00">09:00 AM</option>
+                    <option value="09:30">09:30 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="10:30">10:30 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="11:30">11:30 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="12:30">12:30 PM</option>
+                    <option value="13:00">01:00 PM</option>
+                    <option value="13:30">01:30 PM</option>
+                    <option value="14:00">02:00 PM</option>
+                    <option value="14:30">02:30 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="15:30">03:30 PM</option>
+                    <option value="16:00">04:00 PM</option>
+                    <option value="16:30">04:30 PM</option>
+                    <option value="17:00">05:00 PM</option>
+                </select>
             </div>
-        </section>
-
-        <!-- DIETAS -->
-        <section class="seccion" id="dietas">
-            <div class="tarjeta">
-                <h2>📝 Planes y Dietas</h2>
-                <p style="margin-bottom: 20px;">Planes generales — recuerda que lo ideal es uno personalizado 💚</p>
-                
-                <div class="dieta">
-                    <h3>⚖️ Plan para Control de Peso</h3>
-                    <p>• 5 comidas al día cada 3-4 horas</p>
-                    <p>• Reduce fritos, azúcares y ultraprocesados</p>
-                    <p>• Aumenta agua, verduras y fibra</p>
-                    <p>• Porciones controladas pero sin pasar hambre</p>
-                </div>
-                
-                <div class="dieta">
-                    <h3>💪 Plan para Ganar Masa Muscular</h3>
-                    <p>• Proteína en cada comida: pollo, huevo, pescado, legumbres</p>
-                    <p>• Carbohidratos de calidad: avena, papa, arroz integral</p>
-                    <p>• Comidas más frecuentes y abundantes</p>
-                    <p>• Suficiente agua y descanso</p>
-                </div>
-                
-                <div class="dieta">
-                    <h3>🩺 Plan Salud General</h3>
-                    <p>• Variedad de colores en tu plato 🌈</p>
-                    <p>• Menos sal y embutidos</p>
-                    <p>• Aceites saludables: oliva, aguacate</p>
-                    <p>• 2 litros de agua al día mínimo</p>
-                </div>
-                
-                <div class="fila-botones">
-                    <button class="boton boton-verde" onclick="mostrarSeccion('agendar')">📅 Quiero mi Plan Personalizado</button>
-                </div>
+            <div class="campo">
+                <label>Tratamiento</label>
+                <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
             </div>
-        </section>
+        </div>
 
-        <!-- RECETAS -->
-        <section class="seccion" id="recetas">
-            <div class="tarjeta">
-                <h2>🍳 Recetas Saludables</h2>
-                
-                <div class="comida">
-                    <h3>🥗 Ensalada Completa</h3>
-                    <p><strong>Ingredientes:</strong> Lechuga, espinaca, tomate, pepino, zanahoria, pollo a la plancha, semillas.</p>
-                    <p><strong>Aderezo:</strong> Limón, aceite de oliva, pimienta y poquita sal.</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>🍚 Arroz con Verduras</h3>
-                    <p><strong>Preparación:</strong> Sofríe cebolla, zanahoria y chayote. Agrega arroz integral y agua. Deja cocer. ¡Listo! ✨</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>🍎 Avena de la Mañana</h3>
-                    <p>Avena cocida con leche o agua + manzana picada + canela + un puñado de nueces. Energía pura ⚡</p>
-                </div>
-                
-                <div class="comida">
-                    <h3>🥤 Batido Verde</h3>
-                    <p>Espinaca + plátano + agua o leche + semillas de chía. Rico, nutritivo y rápido 🌿</p>
-                </div>
+        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="clienteAgendar()">✅ Enviar Cita</button>
+    </div>
+
+    <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
+    <div id="contenedorCitas">
+        <p style="color:#777; text-align:center;">Todavía no hay citas. ¡Sé el primero en agendar!</p>
+    </div>
+</section>
+
+<section id="opiniones" class="tarjeta">
+    <h2>⭐ Opiniones de Clientes</h2>
+
+    <div class="formulario-opinion">
+        <h3>💬 Deja tu opinión</h3>
+        <div class="fila">
+            <div class="campo">
+                <label>Tu Nombre</label>
+                <input type="text" id="opinionNombre" placeholder="Escribe tu nombre">
             </div>
-        </section>
-
-        <!-- CONSEJOS -->
-        <section class="seccion" id="consejos">
-            <div class="tarjeta">
-                <h2>💡 Consejos Diarios</h2>
-                <ul style="padding-left: 20px; font-size: 1.05rem;">
-                    <li style="margin: 15px 0;">💧 Toma agua antes de cada comida</li>
-                    <li style="margin: 15px 0;">⏰ Come despacio y mastica bien</li>
-                    <li style="margin: 15px 0;">🛒 Lleva tu propia comida si sales</li>
-                    <li style="margin: 15px 0;">🍖 No saltes comidas</li>
-                    <li style="margin: 15px 0;">📱 Come sin distracciones</li>
-                    <li style="margin: 15px 0;">💤 Duerme bien, ayuda a tu metabolismo</li>
-                    <li style="margin: 15px 0;">🚶 Muévete a diario, aunque sea caminar</li>
-                    <li style="margin: 15px 0;">🧘 No te culpes, cada día es una nueva oportunidad</li>
-                </ul>
+            <div class="campo">
+                <label>Tu Correo Electrónico</label>
+                <input type="email" id="opinionCorreo" placeholder="correo@ejemplo.com">
             </div>
-        </section>
+        </div>
 
-        <!-- CONTACTO -->
-        <section class="seccion" id="contacto">
-            <div class="tarjeta">
-                <h2>📞 Contacto</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 10px;">📍 Toluca, Estado de México</p>
-                <p style="font-size: 1.1rem; margin-bottom: 10px;">📱 WhatsApp: <strong>pon aquí tu número</strong></p>
-                <p style="font-size: 1.1rem; margin-bottom: 10px;">📧 Correo: <strong>pon aquí tu correo</strong></p>
-                <p style="font-size: 1.1rem;">🕐 Horarios: Lun – Vie 9:00 AM – 7:00 PM</p>
-                
-                <div class="fila-botones" style="margin-top: 25px;">
-                    <a href="https://wa.me/" target="_blank" class="boton boton-verde">💬 Escribir por WhatsApp</a>
-                    <a href="mailto:" class="boton boton-claro">📧 Enviar Correo</a>
-                </div>
-            </div>
-        </section>
-    </main>
+        <label style="text-align:center; display:block; margin-top:8px;">Calificación</label>
+        <div class="estrellas" id="contenedorEstrellas">
+            <span class="estrella" data-valor="1">★</span>
+            <span class="estrella" data-valor="2">★</span>
+            <span class="estrella" data-valor="3">★</span>
+            <span class="estrella" data-valor="4">★</span>
+            <span class="estrella" data-valor="5">★</span>
+        </div>
+        <input type="hidden" id="calificacion" value="0">
 
-    <!-- PIE -->
-    <footer>
-        <p>© 2026 Licenciada Daniela — Nutrición y Bienestar 🌿</p>
-        <p style="margin-top: 8px; font-size: 0.9rem; opacity: 0.8;">Comer bien es cuidarse 💚</p>
-    </footer>
+        <div style="margin-top:10px;">
+            <label>Tu Comentario</label>
+            <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
+        </div>
 
-    <script>
-        // Cambiar de sección
-        function mostrarSeccion(id) {
-            // Ocultar todas
-            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('visible'));
-            // Mostrar la elegida
-            document.getElementById(id).classList.add('visible');
-            // Marcar botón activo
-            document.querySelectorAll('.menu button').forEach(b => b.classList.remove('activo'));
-            event.target.classList.add('activo');
-            // Subir al inicio
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarOpinion()">⭐ Enviar Opinión</button>
+    </div>
 
-        // Manejar formulario de citas
-        const form = document.getElementById('form-cita');
-        const listaCitas = document.getElementById('lista-citas');
-        const sinCitas = document.getElementById('sin-citas');
-        
-        // Cargar citas guardadas
-        let citas = JSON.parse(localStorage.getItem('citas-nutricion') || '[]');
-        renderizarCitas();
+    <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
+    <div id="contenedorOpiniones">
+        <p style="color:#777; text-align:center;">Todavía no hay opiniones. ¡Sé el primero en opinar!</p>
+    </div>
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nuevaCita = {
-                id: Date.now(),
-                nombre: document.getElementById('nombre').value,
-                telefono: document.getElementById('telefono').value,
-                fecha: document.getElementById('fecha').value,
-                hora: document.getElementById('hora').value,
-                tipo: document.getElementById('tipo').value,
-                mensaje: document.getElementById('mensaje').value
-            };
-            
-            citas.push(nuevaCita);
-            localStorage.setItem('citas-nutricion', JSON.stringify(citas));
-            
-            // Mostrar confirmación
-            document.getElementById('confirmacion').style.display = 'block';
-            form.reset();
-            renderizarCitas();
-            
-            setTimeout(() => {
-                document.getElementById('confirmacion').style.display = 'none';
-            }, 5000);
+    <div class="bandeja solo-admin">
+        <h3 style="text-align:center; color:var(--lila); margin-bottom:1rem;">📩 Bandeja de Opiniones — Solo Laiza</h3>
+        <div id="bandejaOpiniones">
+            <p style="color:#777; text-align:center;">Aquí aparecen todas las opiniones con correo</p>
+        </div>
+    </div>
+</section>
+
+<section id="contacto" class="tarjeta">
+    <h2>📍 Ubicación y Contacto</h2>
+    <div id="textoContacto">
+        <p><strong>Lic. Laiza González Robles</strong></p>
+        <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a></p>
+        <p id="lineaWhatsApp">💬 WhatsApp: <em>Pendiente de configurar</em></p>
+        <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
+        <p>✉️ Escríbeme o agenda tu cita — ¡Te espero!</p>
+    </div>
+</section>
+
+<footer>
+    <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
+    <p><a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
+    <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
+</footer>
+
+<script>
+const CLAVE_CORRECTA = "laya2026";
+const ID_NUBE = "cosmiatria_laya_001";
+const NOMBRES_MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+let modoAdmin = false;
+let calificacionActual = 0;
+
+window.onload = function() {
+    inicializarFechas();
+    inicializarEstrellas();
+    cargarDesdeNube();
+};
+
+// === ESTRELLAS PARA CALIFICAR ===
+function inicializarEstrellas() {
+    const estrellas = document.querySelectorAll('.estrella');
+    estrellas.forEach(estrella => {
+        estrella.addEventListener('click', function() {
+            calificacionActual = parseInt(this.dataset.valor);
+            document.getElementById('calificacion').value = calificacionActual;
+            estrellas.forEach((e, i) => {
+                e.classList.toggle('activa', i < calificacionActual);
+            });
         });
+        estrella.addEventListener('mouseover', function() {
+            const valor = parseInt(this.dataset.valor);
+            estrellas.forEach((e, i) => {
+                e.style.color = i < valor ? '#FFD700' : '#CCC';
+            });
+        });
+        estrella.addEventListener('mouseout', function() {
+            estrellas.forEach((e, i) => {
+                e.style.color = i < calificacionActual ? '#FFD700' : '#CCC';
+            });
+        });
+    });
+}
 
-        function renderizarCitas() {
-            if (citas.length > 0) {
-                sinCitas.style.display = 'none';
-                listaCitas.innerHTML = '';
-                citas.forEach(cita => {
-                    const div = document.createElement('div');
-                    div.className = 'cita';
-                    div.innerHTML = `
-                        <p class="fecha">📅 ${cita.fecha} — ${cita.hora}</p>
-                        <p><strong>Nombre:</strong> ${cita.nombre}</p>
-                        <p><strong>Teléfono:</strong> ${cita.telefono}</p>
-                        <p><strong>Tipo:</strong> ${cita.tipo}</p>
-                        ${cita.mensaje ? `<p><strong>Nota:</strong> ${cita.mensaje}</p>` : ''}
-                        <button class="btn-eliminar" onclick="eliminarCita(${cita.id})">🗑️ Cancelar</button>
-                    `;
-                    listaCitas.appendChild(div);
-                });
-            } else {
-                sinCitas.style.display = 'block';
-                listaCitas.innerHTML = '';
-            }
-        }
+function inicializarFechas() {
+    const anioActual = new Date().getFullYear();
+    const selectAnio = document.getElementById('clienteAnio');
+    selectAnio.innerHTML = `<option value="${anioActual}">${anioActual}</option><option value="${anioActual+1}">${anioActual+1}</option>`;
+    actualizarDias();
+}
 
-        function eliminarCita(id) {
-            if (confirm('¿Seguro que quieres cancelar esta cita?')) {
-                citas = citas.filter(c => c.id !== id);
-                localStorage.setItem('citas-nutricion', JSON.stringify(citas));
-                renderizarCitas();
-            }
-        }
-    </script>
+function actualizarDias() {
+    const mes = parseInt(document.getElementById('clienteMes').value);
+    const anio = parseInt(document.getElementById('clienteAnio').value);
+    const diasEnMes = new Date(anio, mes + 1, 0).getDate();
+    const selectDia = document.getElementById('clienteDia');
+    selectDia.innerHTML = '';
+    for (let d = 1; d <= diasEnMes; d++) {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = d;
+        selectDia.appendChild(opt);
+    }
+}
+
+function abrirModal() { document.getElementById('modalLogin').style.display = 'flex'; document.getElementById('clave').value = ''; }
+function cerrarModal() { document.getElementById('modalLogin').style.display = 'none'; }
+function verificar() {
+    const clave = document.getElementById('clave').value;
+    if (clave === CLAVE_CORRECTA) {
+        cerrarModal();
+        modoAdmin = true;
+        document.body.classList.add('modo-admin');
+        abrirPanelAdmin();
+    } else { alert("❌ Contraseña incorrecta"); }
+}
+
+function abrirPanelAdmin() {
+    document.getElementById('panelAdmin').style.display = 'flex';
+    document.getElementById('editarBienvenida').value = document.getElementById('textoBienvenida').innerText;
+    let serviciosHTML = document.getElementById('listaServicios').innerHTML;
+    serviciosHTML = serviciosHTML.replace(/<li>/gi, '').replace(/<\/li>/gi, '\n').trim();
+    document.getElementById('editarServicios').value = serviciosHTML;
+    document.getElementById('editarContacto').value = document.getElementById('textoContacto').innerText;
+    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
+    document.getElementById('numeroWhatsApp').value = numero;
+}
+function cerrarPanel() { document.getElementById('panelAdmin').style.display = 'none'; modoAdmin = false; document.body.classList.remove('modo-admin'); }
+
+function guardarNumeroWhatsApp() {
+    let numero = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
+    localStorage.setItem(ID_NUBE + "_whatsapp", numero);
+    sincronizarNube();
+    actualizarBotonWhatsApp();
+    alert("✅ Número guardado");
+}
+function actualizarBotonWhatsApp() {
+    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
+    const enlace = document.getElementById('enlaceWhatsApp');
+    if (numero && numero.length >= 10) {
+        enlace.href = "https://wa.me/" + numero;
+        enlace.classList.remove('sin-numero');
+        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/" + numero + "' target='_blank'>" + numero + "</a>";
+    } else {
+        enlace.href = "#";
+        enlace.classList.add('sin-numero');
+        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <em>Pendiente de configurar</em>";
+    }
+}
+
+// === EL CLIENTE AGENDA SU CITA ===
+function clienteAgendar() {
+    const nombre = document.getElementById('clienteNombre').value.trim();
+    const dia = document.getElementById('clienteDia').value;
+    const mes = document.getElementById('clienteMes').value;
+    const nombreMes = NOMBRES_MESES[mes];
+    const anio = document.getElementById('clienteAnio').value;
+    const hora = document.getElementById('clienteHora').value;
+    const servicio = document.getElementById('clienteServicio').value.trim() || "Consulta general";
+
+    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
+
+    const contenedor = document.getElementById('contenedorCitas');
+    const vacio = contenedor.querySelector('p');
+    if (vacio) vacio.remove();
+
+    const div = document.createElement('div');
+    div.className = 'cita contenedor-relativo';
+    div.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar cita?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong><br>
+        📅 ${dia} de ${nombreMes} del ${anio}<br>
+        ⏰ ${hora} horas<br>
+        💆‍♀️ ${servicio}<br>
+        <span class="estado estado-pendiente">⏳ Pendiente de confirmar</span>
+    `;
+    contenedor.prepend(div);
+
+    document.getElementById('clienteNombre').value = '';
+    document.getElementById('clienteServicio').value = '';
+
+    sincronizarNube();
+    alert("✅ ¡Tu cita ha sido agendada! Gracias.");
+}
+
+// === EL CLIENTE ENVÍA SU OPINIÓN CON ESTRELLAS Y CORREO ===
+function enviarOpinion() {
+    const nombre = document.getElementById('opinionNombre').value.trim();
+    const correo = document.getElementById('opinionCorreo').value.trim();
+    const estrellas = calificacionActual;
+    const comentario = document.getElementById('opinionComentario').value.trim();
+
+    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
+    if (!correo.includes('@')) { alert("⚠️ Escribe un correo válido"); return; }
+    if (estrellas === 0) { alert("⚠️ Selecciona tu calificación con estrellas"); return; }
+    if (!comentario) { alert("⚠️ Escribe tu comentario"); return; }
+
+    const estrellitas = '★'.repeat(estrellas) + '☆'.repeat(5 - estrellas);
+    const fecha = new Date().toLocaleDateString('es-MX');
+
+    // Se ve en la página para todos
+    const contenedor = document.getElementById('contenedorOpiniones');
+    const vacio = contenedor.querySelector('p');
+    if (vacio) vacio.remove();
+
+    const tarjeta = document.createElement('div');
+    tarjeta.className = 'opinion contenedor-relativo';
+    tarjeta.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar opinión?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — ${fecha}<br>
+        <span class="estrellitas">${estrellitas}</span><br>
+        💬 ${comentario}
+    `;
+    contenedor.prepend(tarjeta);
+
+    // Se ve en la BANDEJA de Laiza (con correo)
+    const bandeja = document.getElementById('bandejaOpiniones');
+    const avisoVacio = bandeja.querySelector('p');
+    if (avisoVacio) avisoVacio.remove();
+
+    const correoCompleto = document.createElement('div');
+    correoCompleto.className = 'opinion contenedor-relativo';
+    correoCompleto.style.background = '#F3E5F5';
+    correoCompleto.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar de bandeja?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br>
+        <span class="estrellitas">${estrellitas}</span> — ${fecha}<br>
+        💬 ${comentario}
+    `;
+    bandeja.prepend(correoCompleto);
+
+    // Limpiar formulario
+    document.getElementById('opinionNombre').value = '';
+    document.getElementById('opinionCorreo').value = '';
+    document.getElementById('opinionComentario').value = '';
+    calificacionActual = 0;
+    document.querySelectorAll('.estrella').forEach(e => e.classList.remove('activa'));
+
+    sincronizarNube();
+    alert("✅ ¡Gracias por tu opinión! Se ha enviado correctamente.");
+}
+
+function agregarFoto() {
+    const entrada = document.getElementById('subirFoto');
+    if (!entrada.files.length) { alert("⚠️ Selecciona una imagen"); return; }
+    const archivo = entrada.files[0];
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const div = document.createElement('div');
+        div.className = 'foto-item contenedor-relativo';
+        div.innerHTML = `<img src="${e.target.result}" alt="Trabajo"><button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>`;
+        document.getElementById('contenedorFotos').prepend(div);
+        entrada.value = '';
+        sincronizarNube();
+    };
+    lector.readAsDataURL(archivo);
+}
+function quitarFoto(boton) { if (confirm("¿Eliminar foto?")) { boton.parentElement.remove(); sincronizarNube(); } }
+
+function guardarTodo() {
+    document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
+    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l => l.trim() !== '');
+    let html = '';
+    lineas.forEach(l => { html += `<li>${l.trim()}</li>`; });
+    document.getElementById('listaServicios').innerHTML = html;
+    document.getElementById('textoContacto').innerText = document.getElementById('editarContacto').value;
+    sincronizarNube();
+    alert("✅ ¡Todo guardado correctamente!");
+}
+
+function sincronizarNube() {
+    const datos = {
+        bienvenida: document.getElementById('textoBienvenida').innerText,
+        servicios: document.getElementById('listaServicios').innerHTML,
+        galeria: document.getElementById('contenedorFotos').innerHTML,
+        citas: document.getElementById('contenedorCitas').innerHTML,
+        opinionesPublicas: document.getElementById('contenedorOpiniones').innerHTML,
+        bandejaPrivada: document.getElementById('bandejaOpiniones').innerHTML,
+        contacto: document.getElementById('textoContacto').innerHTML,
+        ultimaActualizacion: new Date().toISOString()
+    };
+    localStorage.setItem(ID_NUBE, JSON.stringify(datos));
+}
+
+function cargarDesdeNube() {
+    const guardado = localStorage.getItem(ID_NUBE);
+    const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
+    if (numero) { actualizarBotonWhatsApp(); }
+    if (guardado) {
+        try {
+            const d = JSON.parse(guardado);
+            if (d.bienvenida) document.getElementById('textoBienvenida').innerText = d.bienvenida;
+            if (d.servicios) document.getElementById('listaServicios').innerHTML = d.servicios;
+            if (d.galeria) document.getElementById('contenedorFotos').innerHTML = d.galeria;
+            if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
+            if (d.opinionesPublicas) document.getElementById('contenedorOpiniones').innerHTML = d.opinionesPublicas;
+            if (d.bandejaPrivada) document.getElementById('bandejaOpiniones').innerHTML = d.bandejaPrivada;
+            if (d.contacto) document.getElementById('textoContacto').innerText = d.contacto;
+        } catch(e) {}
+    }
+}
+</script>
 </body>
 </html>

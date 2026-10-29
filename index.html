@@ -1,393 +1,274 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmiatría Laya | Lic. Laiza González Robles</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root {
-            --dorado: #D4AF37;
-            --rosa: #E91E8C;
-            --lila: #9C27B0;
-            --azul: #2196F3;
-            --verde: #4CAF50;
-            --whatsapp: #25D366;
-            --ig: #E4405F;
-            --fb: #1877F2;
-            --gris: #F5F5F5;
-            --texto: #333;
-            --sombra: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        body { background: #FFF; color: var(--texto); line-height: 1.6; padding-top: 0; transition: padding-top 0.3s; }
-        body.modo-admin { padding-top: 52px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi página web</title>
+  <meta name="description" content="Mi página web publicada con GitHub Pages">
 
-        header {
-            background: linear-gradient(135deg, var(--rosa), var(--lila));
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-        header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
-        header p { font-size: 1.1rem; opacity: 0.95; }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .nav-botones {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            padding: 1.2rem;
-            background: white;
-            box-shadow: var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 99;
-        }
-        .btn {
-            padding: 11px 18px;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); color: white; text-decoration: none; }
-        .btn-dorado { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #2C2000; }
-        .btn-rosa { background: linear-gradient(135deg, #E91E8C, #FF6AB3); }
-        .btn-lila { background: linear-gradient(135deg, #9C27B0, #CE93D8); }
-        .btn-azul { background: linear-gradient(135deg, #2196F3, #64B5F6); }
-        .btn-verde { background: linear-gradient(135deg, #4CAF50, #81C784); }
-        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #52E085); }
-        .btn-ig { background: linear-gradient(135deg, #E4405F, #F783AC); }
-        .btn-fb { background: linear-gradient(135deg, #1877F2, #69A0F9); }
-        .sin-numero { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+    body {
+      font-family: Arial, sans-serif;
+      color: #202033;
+      background: #f7f7fb;
+      line-height: 1.6;
+    }
 
-        section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
-        section h2 {
-            text-align: center;
-            color: var(--lila);
-            margin-bottom: 1.8rem;
-            font-size: 1.7rem;
-            border-bottom: 3px solid var(--dorado);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            width: 100%;
-        }
-        .tarjeta {
-            background: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: var(--sombra);
-            margin-bottom: 1.5rem;
-        }
-        .lista-servicios { list-style: none; padding: 0; }
-        .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
-        .modo-admin .lista-servicios li:hover { background: #F9F0FC; }
+    header {
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      box-shadow: 0 2px 12px #20203310;
+    }
 
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 18px;
-        }
-        .foto-item {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            position: relative;
-            background: var(--gris);
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .foto-item img { width: 100%; height: 100%; object-fit: cover; }
+    .logo {
+      color: #6c4cf1;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-        .formulario-cita, .formulario-opinion {
-            background: #F8F0FC;
-            padding: 1.5rem;
-            border-radius: 14px;
-            margin-top: 1rem;
-        }
-        .formulario-opinion { background: #FFF8E1; }
-        .formulario-cita h3, .formulario-opinion h3 { text-align: center; color: var(--lila); margin-bottom: 1rem; }
-        .fila { display: flex; flex-wrap: wrap; gap: 10px; }
-        .campo { flex: 1; min-width: 140px; }
-        label { display: block; font-weight: 600; margin-bottom: 4px; color: #444; font-size: 0.9rem; }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #CCC;
-            font-size: 0.95rem;
-        }
-        textarea { resize: vertical; min-height: 90px; }
+    nav {
+      display: flex;
+      gap: 22px;
+    }
 
-        .estrellas { display: flex; gap: 8px; font-size: 32px; justify-content: center; margin: 10px 0; }
-        .estrella { cursor: pointer; color: #CCC; transition: color 0.2s; }
-        .estrella.activa { color: #FFD700; }
+    nav a {
+      color: #202033;
+      text-decoration: none;
+    }
 
-        .opinion {
-            background: #FFF8E1;
-            border-left: 5px solid var(--dorado);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-        }
-        .opinion .estrellitas { font-size: 18px; color: #FFD700; }
+    nav a:hover {
+      color: #6c4cf1;
+    }
 
-        footer {
-            background: #2C2C2C;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-        footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
+    .hero {
+      min-height: 75vh;
+      padding: 80px 8%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 40px;
+      background: linear-gradient(135deg, #f7f7fb 45%, #e9e4ff);
+    }
 
-        /* BOTÓN CANDADO — CORREGIDO */
-        .candado-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #222;
-            color: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-            z-index: 1000;
-            border: none;
-            outline: none;
-            transition: background 0.3s;
-        }
-        .candado-btn:hover { background: var(--lila); }
+    .hero h1 {
+      max-width: 650px;
+      margin-bottom: 20px;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+    }
 
-        /* MODALES */
-        .modal-fondo {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-fondo.activo { display: flex; }
+    .hero p {
+      max-width: 560px;
+      margin-bottom: 28px;
+      color: #656579;
+      font-size: 1.1rem;
+    }
 
-        .modal-caja {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            width: 92%;
-            max-width: 520px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-        }
-        .modal-caja h3 { text-align: center; margin-bottom: 1.2rem; color: var(--lila); }
-        .boton-cerrar {
-            background: #E53935;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.95rem;
-        }
-        .boton-cerrar:hover { background: #C62828; }
+    .boton {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 9px;
+      background: #6c4cf1;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-        /* Barra de edición */
-        .barra-edicion {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(90deg, var(--lila), var(--rosa));
-            color: white;
-            padding: 10px 20px;
-            z-index: 3000;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .modo-admin .barra-edicion { display: flex; }
-        .barra-edicion button {
-            background: white;
-            color: var(--lila);
-            border: none;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-left: 6px;
-        }
-        .barra-edicion button:hover { opacity: 0.9; }
+    .boton:hover {
+      background: #5235d4;
+    }
 
-        /* Edición en línea */
-        [contenteditable="true"]:hover {
-            outline: 2px dashed var(--lila);
-            outline-offset: 3px;
-            border-radius: 4px;
-        }
-        [contenteditable="true"]:focus {
-            outline: 2px solid var(--lila);
-            background: #F9F0FC;
-            border-radius: 4px;
-        }
-        .solo-admin { display: none; }
-        .modo-admin .solo-admin { display: block; }
-    </style>
+    .ilustracion {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #8c73ff, #4f35d5);
+      color: white;
+      font-size: 6rem;
+    }
+
+    section {
+      padding: 75px 8%;
+    }
+
+    .titulo {
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 2.4rem;
+    }
+
+    .subtitulo {
+      max-width: 650px;
+      margin: 0 auto 38px;
+      color: #656579;
+      text-align: center;
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .tarjeta {
+      padding: 26px;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 8px 28px #2020330b;
+    }
+
+    .tarjeta h3 {
+      margin: 10px 0;
+    }
+
+    .tarjeta p,
+    .acerca p,
+    .contacto p {
+      color: #656579;
+    }
+
+    .icono {
+      font-size: 2rem;
+    }
+
+    .acerca {
+      background: white;
+      text-align: center;
+    }
+
+    .acerca p {
+      max-width: 750px;
+      margin: 15px auto 0;
+    }
+
+    .contacto {
+      text-align: center;
+    }
+
+    .contacto p {
+      margin: 10px 0 24px;
+    }
+
+    footer {
+      padding: 22px;
+      background: #202033;
+      color: white;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 6%;
+      }
+
+      .ilustracion {
+        min-height: 220px;
+      }
+
+      section {
+        padding: 60px 6%;
+      }
+
+      .tarjetas {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body id="cuerpoPagina">
 
-<!-- Barra de edición -->
-<div class="barra-edicion">
-    <span>✅ Modo Edición Activo — Haz clic en cualquier texto para modificarlo</span>
-    <div>
-        <button onclick="guardarCambios()">💾 Guardar</button>
-        <button onclick="cerrarSesion()">🚪 Salir</button>
-    </div>
-</div>
+<body>
+  <header>
+    <a class="logo" href="#inicio">MiMarca</a>
 
-<!-- BOTÓN CANDADO FUNCIONAL -->
-<button class="candado-btn" id="botonCandado" type="button">🔒</button>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#acerca">Acerca de</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-<!-- Modal de Inicio de Sesión -->
-<div class="modal-fondo" id="modalLogin">
-    <div class="modal-caja">
-        <h3>🔐 Acceso de Administración</h3>
-        <p style="text-align:center; color:#666; font-size:0.9rem; margin-bottom:1rem;">Solo la Lic. Laiza puede entrar</p>
-        <input type="password" id="claveIngreso" placeholder="Escribe la contraseña" style="margin-bottom:10px;">
-        <p id="mensajeError" style="color:red; text-align:center; display:none;">Contraseña incorrecta</p>
-        <button class="btn btn-lila" style="width:100%; margin-top:8px;" id="botonEntrar">Entrar</button>
-        <button class="boton-cerrar" id="botonCerrarLogin">Cerrar</button>
-    </div>
-</div>
+  <main>
+    <section class="hero" id="inicio">
+      <div>
+        <h1>Haz realidad tu próxima gran idea</h1>
+        <p>
+          Presenta aquí tu negocio, proyecto o marca. Cuenta brevemente qué
+          haces y cómo puedes ayudar a tus clientes.
+        </p>
+        <a class="boton" href="#contacto">Contáctame</a>
+      </div>
 
-<!-- Panel de Configuración -->
-<div class="modal-fondo" id="modalPanel">
-    <div class="modal-caja">
-        <h3>⚙️ Configuración</h3>
-        <div style="margin-bottom:1rem;">
-            <label style="display:block; margin-bottom:4px;">🔗 Enlace de Facebook:</label>
-            <input type="url" id="enlaceFacebook" placeholder="https://facebook.com/tu.pagina">
-        </div>
-        <div style="margin-bottom:1rem;">
-            <label style="display:block; margin-bottom:4px;">📱 WhatsApp (solo números con código país):</label>
-            <input type="text" id="numeroWhatsApp" placeholder="Ej: 521234567890">
-        </div>
-        <div style="margin-bottom:1rem;">
-            <label style="display:block; margin-bottom:4px;">📍 Dirección:</label>
-            <textarea id="editarDireccion" rows="2" placeholder="Tu dirección..."></textarea>
-        </div>
-        <button class="btn btn-verde" style="width:100%; margin-top:8px;" id="botonGuardarConfig">💾 Guardar Todo</button>
-        <button class="boton-cerrar" id="botonCerrarPanel">Cerrar</button>
-    </div>
-</div>
+      <div class="ilustracion" aria-hidden="true">✦</div>
+    </section>
 
-<header>
-    <h1 contenteditable="true">✨ Cosmiatría Laya ✨</h1>
-    <p contenteditable="true">Lic. Laiza González Robles</p>
-    <p contenteditable="true"><em>Belleza, cuidado y bienestar para tu piel</em></p>
-</header>
+    <section id="servicios">
+      <h2 class="titulo">Mis servicios</h2>
+      <p class="subtitulo">
+        Describe aquí tus principales servicios o las ventajas de tu proyecto.
+      </p>
 
-<nav class="nav-botones">
-    <a href="#servicios" class="btn btn-rosa">💆‍♀️ Servicios</a>
-    <a href="#trabajos" class="btn btn-lila">📸 Trabajos</a>
-    <a href="#agendar" class="btn btn-azul">📅 Agendar Cita</a>
-    <a href="#opiniones" class="btn btn-dorado">⭐ Opiniones</a>
-    <a href="#contacto" class="btn btn-verde">📍 Contacto</a>
-    <a href="https://www.instagram.com/skin_carelaya" target="_blank" class="btn btn-ig">
-        <i class="fa fa-instagram"></i> Instagram
-    </a>
-    <a id="enlaceFB" href="#" target="_blank" class="btn btn-fb">
-        <i class="fa fa-facebook"></i> Facebook
-    </a>
-    <a id="enlaceWA" href="#" target="_blank" class="btn btn-whatsapp sin-numero">
-        <i class="fa fa-whatsapp"></i> WhatsApp
-    </a>
-</nav>
+      <div class="tarjetas">
+        <article class="tarjeta">
+          <div class="icono">💡</div>
+          <h3>Ideas creativas</h3>
+          <p>Soluciones pensadas para destacar y conectar con las personas.</p>
+        </article>
 
-<section id="servicios" class="tarjeta">
-    <h2>💆‍♀️ Nuestros Servicios</h2>
-    <ul class="lista-servicios">
-        <li contenteditable="true">✅ Limpieza facial profesional</li>
-        <li contenteditable="true">✅ Hidratación y nutrición de piel</li>
-        <li contenteditable="true">✅ Tratamientos para pieles sensibles</li>
-        <li contenteditable="true">✅ Asesoría personalizada de cuidado diario</li>
-        <li contenteditable="true">✅ Y mucho más — ¡consúltame!</li>
-    </ul>
-</section>
+        <article class="tarjeta">
+          <div class="icono">⚡</div>
+          <h3>Atención rápida</h3>
+          <p>Un servicio sencillo, claro y enfocado en lo que necesitas.</p>
+        </article>
 
-<section id="contacto" class="tarjeta">
-    <h2>📍 Ubicación y Contacto</h2>
-    <p><strong>Lic. Laiza González Robles</strong></p>
-    <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
-    <p id="textoWA">💬 WhatsApp: <em>Pendiente de configurar</em></p>
-    <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
-</section>
+        <article class="tarjeta">
+          <div class="icono">🎯</div>
+          <h3>Buenos resultados</h3>
+          <p>Trabajo dedicado para ayudarte a alcanzar tus objetivos.</p>
+        </article>
+      </div>
+    </section>
 
-<footer>
-    <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
-    <p><a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
-    <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
-</footer>
+    <section class="acerca" id="acerca">
+      <h2 class="titulo">Acerca de mí</h2>
+      <p>
+        Usa este espacio para presentarte: quién eres, qué haces y por qué
+        deberían elegir tu trabajo o negocio.
+      </p>
+    </section>
 
-<script>
-// Contraseña de acceso
-const CLAVE_CORRECTA = "laya2026";
-let modoAdmin = false;
+    <section class="contacto" id="contacto">
+      <h2 class="titulo">Hablemos</h2>
+      <p>¿Tienes una pregunta o quieres empezar un proyecto?</p>
+      <a class="boton" href="mailto:hola@ejemplo.com">Enviar un correo</a>
+    </section>
+  </main>
 
-// === EVENTOS — TODO CORREGIDO ===
-document.addEventListener('DOMContentLoaded', function() {
-    // Botón candado
-    document.getElementById('botonCandado').addEventListener('click', abrirModalLogin);
-    
-    // Botones del modal login
-    document.getElementById('botonEntrar').addEventListener('click', verificarClave);
-    document.getElementById('botonCerrarLogin').addEventListener('click', cerrarModalLogin);
-    
-    // Botones del panel
-    document.getElementById('botonGuardarConfig').addEventListener('click', guardarConfiguracion);
-    document.getElementById('botonCerrarPanel').addEventListener('click', cerrarPanel);
-    
-    // Cargar datos guardados
-    cargarDatosGuardados();
-});
-
-// === FUNCIONES DEL CANDADO ===
-function abrirModalLogin() {
-    document.getElementById('modalLogin').classList.add('activo');
-    document.getElementById('claveIngreso').value = '';
-    document.getElementById('mensajeError').style.display = 'none';
-}
-
-function cerrarModalLogin() {
-    document.getElementById('modalLogin').classList.remove('activo');
-}
-
-function verificarClave() {
-    const claveIngresada = document.getElementById('claveIngreso').value.trim();
-    
-    if (claveIngresada === CLAVE_CORRECTA) {
-        // Contraseña correcta
-        modoAdmin = true;
-        document.getElementById('cuerpoPagina').classList.add('modo-admin');
-        cerrar
+  <footer>
+    <p>© 2026 MiMarca. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

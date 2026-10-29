@@ -21,8 +21,7 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+      font: 16px/1.6 Arial, sans-serif;
       color: var(--texto);
       background: var(--crema);
     }
@@ -34,74 +33,90 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 18px;
-      padding: 15px 7%;
+      gap: 16px;
+      padding: 14px 7%;
       background: var(--crema);
       box-shadow: 0 2px 14px #392d3110;
     }
 
     .marca {
       color: var(--rosa-oscuro);
-      font-family: Georgia, serif;
-      font-size: 1.3rem;
-      font-weight: bold;
+      font: bold 1.3rem Georgia, serif;
       text-decoration: none;
     }
 
     nav {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 18px;
+      justify-content: center;
+      gap: 16px;
     }
 
-    nav a {
-      color: var(--texto);
-      text-decoration: none;
-    }
-
+    nav a { color: var(--texto); text-decoration: none; }
     nav a:hover { color: var(--rosa); }
 
     h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
 
     .portada {
-      min-height: 70vh;
-      padding: 75px 8%;
+      min-height: 65vh;
+      padding: 70px 8%;
       display: grid;
       grid-template-columns: 1.1fr .9fr;
       align-items: center;
-      gap: 40px;
+      gap: 36px;
       background: linear-gradient(135deg, var(--crema), var(--rosa-claro));
     }
 
     .etiqueta {
       color: var(--rosa-oscuro);
       text-transform: uppercase;
-      letter-spacing: .15em;
+      letter-spacing: .14em;
       font-size: .8rem;
       font-weight: bold;
     }
 
-    .portada h1 {
+    h1 {
       margin: 12px 0;
       color: #513642;
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      line-height: 1.05;
+      font-size: clamp(2.7rem, 6vw, 4.7rem);
+      line-height: 1.08;
     }
 
-    .portada p {
-      max-width: 560px;
+    .portada p { max-width: 560px; color: var(--gris); font-size: 1.1rem; }
+
+    .decoracion {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      border-radius: 48% 48% 22px 22px;
+      color: white;
+      background: linear-gradient(145deg, #e9c7d0, #c98296);
+      font-size: 5rem;
+    }
+
+    section { padding: 64px 8%; }
+
+    .titulo {
+      margin: 0 0 12px;
+      color: #513642;
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 2.7rem);
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 0 auto 32px;
       color: var(--gris);
-      font-size: 1.1rem;
+      text-align: center;
     }
 
     .boton {
       display: inline-block;
       padding: 12px 22px;
       border: 0;
-      border-radius: 25px;
-      background: var(--rosa);
+      border-radius: 24px;
       color: white;
+      background: var(--rosa);
       font-weight: bold;
       text-decoration: none;
       cursor: pointer;
@@ -109,70 +124,31 @@
 
     .boton:hover { background: var(--rosa-oscuro); }
 
-    .decoracion {
-      min-height: 320px;
-      display: grid;
-      place-items: center;
-      border-radius: 48% 48% 22px 22px;
-      background: linear-gradient(145deg, #e9c7d0, #c98296);
-      color: white;
-      font-size: 5rem;
-    }
-
-    section { padding: 70px 8%; }
-
-    .titulo {
-      margin: 0 0 12px;
-      color: #513642;
-      text-align: center;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-    }
-
-    .intro {
-      max-width: 680px;
-      margin: 0 auto 35px;
-      color: var(--gris);
-      text-align: center;
-    }
-
     .servicios {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
 
     .tarjeta {
-      padding: 24px;
+      padding: 22px;
       border: 1px solid #f0e0e4;
       border-radius: 16px;
       background: white;
       box-shadow: 0 8px 24px #392d3108;
     }
 
-    .tarjeta h3 {
-      margin: 8px 0;
-      color: var(--rosa-oscuro);
-    }
-
+    .tarjeta h3 { margin: 8px 0; color: var(--rosa-oscuro); }
     .tarjeta p { color: var(--gris); }
 
-    .acerca {
-      background: var(--rosa-claro);
-      text-align: center;
-    }
-
-    .acerca p {
-      max-width: 760px;
-      margin: 16px auto 0;
-      color: var(--gris);
-    }
-
+    .acerca { background: var(--rosa-claro); text-align: center; }
+    .acerca p { max-width: 760px; margin: 14px auto 0; color: var(--gris); }
     .agenda { background: white; }
 
     .formulario {
       max-width: 720px;
       margin: auto;
-      padding: 26px;
+      padding: 24px;
       border: 1px solid #f0e0e4;
       border-radius: 16px;
       background: var(--crema);
@@ -181,17 +157,13 @@
     .campos {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      gap: 14px;
     }
 
-    .campo { margin-bottom: 14px; }
+    .campo { margin-bottom: 12px; }
     .ancho { grid-column: 1 / -1; }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
 
     input, select, textarea {
       width: 100%;
@@ -204,23 +176,17 @@
       font: inherit;
     }
 
-    textarea { min-height: 90px; resize: vertical; }
-
-    .nota {
-      color: var(--gris);
-      font-size: .88rem;
-    }
+    textarea { min-height: 85px; resize: vertical; }
 
     .redes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      margin-top: 22px;
+      gap: 10px;
     }
 
     .red-social {
-      padding: 9px 16px;
+      padding: 8px 15px;
       border: 1px solid #e7c9d2;
       border-radius: 22px;
       color: var(--rosa-oscuro);
@@ -229,31 +195,26 @@
       text-decoration: none;
     }
 
-    .red-social:hover {
-      color: white;
-      background: var(--rosa);
-    }
+    .red-social:hover { color: white; background: var(--rosa); }
 
     footer {
       padding: 22px;
-      background: #513642;
       color: white;
+      background: #513642;
       text-align: center;
     }
 
     .admin-acceso {
       display: inline-block;
       margin-top: 8px;
-      padding: 7px 14px;
+      padding: 6px 13px;
       border: 1px solid #f5dce3;
       border-radius: 20px;
       color: white;
       text-decoration: none;
     }
 
-    .admin-acceso:hover { background: var(--rosa-oscuro); }
-
-    /* El enlace #panel-admin hace aparecer el panel sin depender de JavaScript */
+    /* El enlace #panel-admin abre el acceso sin depender de JavaScript */
     #panel-admin {
       position: fixed;
       inset: 0;
@@ -261,17 +222,17 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      background: rgba(36, 23, 29, .82);
+      padding: 14px;
+      background: #24171dcc;
     }
 
     #panel-admin:target { display: flex; }
 
     .panel-contenido {
       width: 100%;
-      max-width: 760px;
+      max-width: 720px;
       max-height: 90vh;
-      padding: 24px;
+      padding: 22px;
       border-radius: 16px;
       background: var(--crema);
       overflow-y: auto;
@@ -279,20 +240,17 @@
 
     .panel-cabecera {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
     }
 
     .panel-cabecera h2 { margin: 0; }
 
     .cerrar {
-      border: 0;
-      background: transparent;
       color: var(--texto);
       font-size: 2rem;
       text-decoration: none;
-      cursor: pointer;
     }
 
     .panel-seccion {
@@ -303,12 +261,15 @@
       background: white;
     }
 
+    [hidden] { display: none !important; }
+
+    .aviso { color: var(--gris); font-size: .9rem; }
+
     @media (max-width: 720px) {
       header { flex-direction: column; }
-      nav { justify-content: center; gap: 12px; }
-      .portada { grid-template-columns: 1fr; padding: 55px 6%; }
-      .decoracion { min-height: 220px; }
-      section { padding: 55px 6%; }
+      .portada { grid-template-columns: 1fr; padding: 52px 6%; }
+      .decoracion { min-height: 210px; }
+      section { padding: 52px 6%; }
       .servicios { grid-template-columns: 1fr; }
       .campos { grid-template-columns: 1fr; }
       .ancho { grid-column: auto; }
@@ -319,7 +280,7 @@
 <body>
   <header>
     <a class="marca" href="#inicio">COSMIATRIA LAYA</a>
-    <nav aria-label="Navegación principal">
+    <nav aria-label="Navegación">
       <a href="#inicio">Inicio</a>
       <a href="#servicios">Tratamientos</a>
       <a href="#acerca">Nosotras</a>
@@ -333,7 +294,7 @@
       <div>
         <span class="etiqueta">Cosmiatría y cuidado de la piel</span>
         <h1 id="titulo-portada">Tu piel, en manos expertas</h1>
-        <p id="texto-portada">
+        <p id="descripcion-portada">
           Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.
         </p>
         <a class="boton" href="#agenda">Agenda tu cita</a>
@@ -343,7 +304,7 @@
 
     <section id="servicios">
       <h2 class="titulo">Nuestros tratamientos</h2>
-      <p class="intro">Conoce nuestros servicios y solicita la cita que mejor te convenga.</p>
+      <p class="intro">Conoce nuestros servicios y solicita la cita que prefieras.</p>
       <div class="servicios" id="lista-servicios"></div>
     </section>
 
@@ -366,13 +327,13 @@
           </div>
 
           <div class="campo">
-            <label for="telefono">Teléfono o WhatsApp</label>
-            <input id="telefono" name="telefono" type="tel" autocomplete="tel" required>
+            <label for="telefono">Tu teléfono o WhatsApp</label>
+            <input id="telefono" name="telefono" type="tel" required>
           </div>
 
           <div class="campo">
             <label for="correo-cliente">Correo electrónico</label>
-            <input id="correo-cliente" name="correo" type="email" autocomplete="email">
+            <input id="correo-cliente" name="correo" type="email">
           </div>
 
           <div class="campo">
@@ -396,10 +357,10 @@
           </div>
 
           <div class="campo ancho">
-            <button class="boton" type="submit">Solicitar cita por WhatsApp</button>
+            <button class="boton" type="submit">Enviar solicitud por WhatsApp</button>
           </div>
         </div>
-        <p class="nota">La cita queda pendiente de confirmación por COSMIATRIA LAYA.</p>
+        <p class="aviso">La cita queda pendiente hasta que COSMIATRIA LAYA la confirme.</p>
       </form>
     </section>
 
@@ -407,11 +368,11 @@
       <h2 class="titulo">Conversemos</h2>
       <p class="intro">Síguenos o escríbenos por tu medio favorito.</p>
       <div class="redes">
-        <a class="red-social" id="enlace-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="red-social" id="enlace-telegram" href="#" target="_blank" rel="noopener">Telegram</a>
-        <a class="red-social" id="enlace-instagram" href="#" target="_blank" rel="noopener">Instagram</a>
-        <a class="red-social" id="enlace-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
-        <a class="red-social" id="enlace-correo" href="#">Correo</a>
+        <a class="red-social" id="link-whatsapp" href="#">WhatsApp</a>
+        <a class="red-social" id="link-telegram" href="#">Telegram</a>
+        <a class="red-social" id="link-instagram" href="#">Instagram</a>
+        <a class="red-social" id="link-facebook" href="#">Facebook</a>
+        <a class="red-social" id="link-correo" href="#">Correo</a>
       </div>
     </section>
   </main>
@@ -421,28 +382,28 @@
     <a class="admin-acceso" href="#panel-admin">Acceso administradora</a>
   </footer>
 
-  <div id="panel-admin" role="dialog" aria-modal="true" aria-label="Panel de administración">
+  <div id="panel-admin" role="dialog" aria-modal="true" aria-label="Administración">
     <div class="panel-contenido">
       <div class="panel-cabecera">
-        <h2>Administración de COSMIATRIA LAYA</h2>
+        <h2>Administración</h2>
         <a class="cerrar" href="#inicio" aria-label="Cerrar">×</a>
       </div>
 
       <div id="zona-login">
-        <p>Ingresa la contraseña de administradora.</p>
+        <p>Escribe la contraseña de administradora.</p>
         <form id="formulario-login">
           <div class="campo">
             <label for="contrasena-admin">Contraseña</label>
             <input id="contrasena-admin" type="password" autocomplete="current-password" required>
           </div>
           <button class="boton" type="submit">Iniciar sesión</button>
-          <p id="mensaje-login" class="nota" role="alert"></p>
+          <p id="mensaje-login" role="alert"></p>
         </form>
       </div>
 
       <div id="zona-admin" hidden>
         <div class="panel-seccion">
-          <h3>Editar contenido</h3>
+          <h3>Editar la página</h3>
           <form id="formulario-edicion">
             <div class="campo">
               <label for="editar-titulo">Título principal</label>
@@ -460,12 +421,12 @@
             </div>
 
             <div class="campo">
-              <label for="editar-servicios">Tratamientos, uno por línea: Nombre | Descripción</label>
+              <label for="editar-servicios">Tratamientos: uno por línea, Nombre | Descripción</label>
               <textarea id="editar-servicios" required></textarea>
             </div>
 
             <div class="campo">
-              <label for="editar-whatsapp">WhatsApp (ejemplo: https://wa.me/521...)</label>
+              <label for="editar-whatsapp">Enlace de WhatsApp</label>
               <input id="editar-whatsapp" type="url">
             </div>
 
@@ -492,70 +453,72 @@
             <button class="boton" type="submit">Guardar cambios</button>
           </form>
         </div>
+
+        <p class="aviso">
+          Los cambios se guardan solo en el navegador donde se editan.
+        </p>
       </div>
     </div>
   </div>
 
   <script>
     /*
-      Cambia estos datos por los enlaces reales del negocio.
-      El número de WhatsApp debe llevar código de país y solo números.
-      Ejemplo México: 5215512345678
+      Cambia estos enlaces por los de COSMIATRIA LAYA.
+      WhatsApp: escribe el número con código de país y solo números.
+      Ejemplo: 5215512345678
     */
-    const ADMIN_PASSWORD = "Laya2026!";
+    const ADMIN_PASSWORD = "Laya2026";
     const WHATSAPP_NEGOCIO = "5210000000000";
 
-    const contenidoInicial = {
+    const datosIniciales = {
       titulo: "Tu piel, en manos expertas",
       descripcion: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
       acerca: "En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.",
       servicios: [
         { nombre: "Limpieza facial", descripcion: "Un cuidado profundo para ayudar a mantener tu piel limpia y fresca." },
-        { nombre: "Tratamiento personalizado", descripcion: "Una opción adaptada a las necesidades y objetivos de tu piel." },
-        { nombre: "Hidratación facial", descripcion: "Un momento de cuidado para devolverle confort e hidratación a tu piel." }
+        { nombre: "Tratamiento personalizado", descripcion: "Una opción adaptada a las necesidades de tu piel." },
+        { nombre: "Hidratación facial", descripcion: "Cuidado para devolverle confort e hidratación a tu piel." }
       ],
       whatsapp: "https://wa.me/5210000000000",
-      telegram: "https://t.me/",
-      instagram: "https://instagram.com/",
-      facebook: "https://facebook.com/",
-      correo: "hola@cosmiatrialaya.com"
+      telegram: "",
+      instagram: "",
+      facebook: "",
+      correo: ""
     };
 
-    function cargarDato(clave, predeterminado) {
+    function cargarDatos() {
       try {
-        const dato = localStorage.getItem(clave);
-        return dato ? JSON.parse(dato) : predeterminado;
+        const guardados = localStorage.getItem("cosmiatriaLayaContenido");
+        return guardados ? JSON.parse(guardados) : datosIniciales;
       } catch (error) {
-        return predeterminado;
+        return datosIniciales;
       }
     }
 
-    function guardarDato(clave, valor) {
+    let contenido = cargarDatos();
+
+    function guardarDatos() {
       try {
-        localStorage.setItem(clave, JSON.stringify(valor));
+        localStorage.setItem("cosmiatriaLayaContenido", JSON.stringify(contenido));
+        return true;
       } catch (error) {
-        alert("El navegador no permitió guardar los cambios.");
+        alert("No se pudieron guardar los cambios en este navegador.");
+        return false;
       }
-    }
-
-    let contenido = cargarDato("laya_contenido", contenidoInicial);
-
-    function id(nombre) {
-      return document.getElementById(nombre);
     }
 
     function mostrarPagina() {
-      id("anio").textContent = new Date().getFullYear();
-      id("titulo-portada").textContent = contenido.titulo;
-      id("texto-portada").textContent = contenido.descripcion;
-      id("texto-acerca").textContent = contenido.acerca;
+      document.getElementById("anio").textContent = new Date().getFullYear();
+      document.getElementById("titulo-portada").textContent = contenido.titulo;
+      document.getElementById("descripcion-portada").textContent = contenido.descripcion;
+      document.getElementById("texto-acerca").textContent = contenido.acerca;
 
-      const lista = id("lista-servicios");
-      const selector = id("tratamiento");
+      const lista = document.getElementById("lista-servicios");
+      const selector = document.getElementById("tratamiento");
       lista.replaceChildren();
       selector.replaceChildren();
 
-      contenido.servicios.forEach((servicio, indice) => {
+      contenido.servicios.forEach(function(servicio, indice) {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta";
 
@@ -566,10 +529,10 @@
         const titulo = document.createElement("h3");
         titulo.textContent = servicio.nombre;
 
-        const texto = document.createElement("p");
-        texto.textContent = servicio.descripcion;
+        const descripcion = document.createElement("p");
+        descripcion.textContent = servicio.descripcion;
 
-        tarjeta.append(icono, titulo, texto);
+        tarjeta.append(icono, titulo, descripcion);
         lista.appendChild(tarjeta);
 
         const opcion = document.createElement("option");
@@ -578,93 +541,92 @@
         selector.appendChild(opcion);
       });
 
-      id("enlace-whatsapp").href = contenido.whatsapp || "#";
-      id("enlace-telegram").href = contenido.telegram || "#";
-      id("enlace-instagram").href = contenido.instagram || "#";
-      id("enlace-facebook").href = contenido.facebook || "#";
-      id("enlace-correo").href = contenido.correo ? "mailto:" + contenido.correo : "#";
+      document.getElementById("link-whatsapp").href = contenido.whatsapp || "#";
+      document.getElementById("link-telegram").href = contenido.telegram || "#";
+      document.getElementById("link-instagram").href = contenido.instagram || "#";
+      document.getElementById("link-facebook").href = contenido.facebook || "#";
+      document.getElementById("link-correo").href =
+        contenido.correo ? "mailto:" + contenido.correo : "#";
     }
 
-    function cargarEdicion() {
-      id("editar-titulo").value = contenido.titulo;
-      id("editar-descripcion").value = contenido.descripcion;
-      id("editar-acerca").value = contenido.acerca;
-      id("editar-servicios").value = contenido.servicios
-        .map(servicio => servicio.nombre + " | " + servicio.descripcion)
-        .join("\n");
-      id("editar-whatsapp").value = contenido.whatsapp;
-      id("editar-telegram").value = contenido.telegram;
-      id("editar-instagram").value = contenido.instagram;
-      id("editar-facebook").value = contenido.facebook;
-      id("editar-correo").value = contenido.correo;
-    }
-
-    id("formulario-login").addEventListener("submit", function (evento) {
+    document.getElementById("formulario-login").addEventListener("submit", function(evento) {
       evento.preventDefault();
 
-      if (id("contrasena-admin").value === ADMIN_PASSWORD) {
-        id("zona-login").hidden = true;
-        id("zona-admin").hidden = false;
-        id("mensaje-login").textContent = "";
-        cargarEdicion();
+      const clave = document.getElementById("contrasena-admin").value;
+
+      if (clave === ADMIN_PASSWORD) {
+        document.getElementById("zona-login").hidden = true;
+        document.getElementById("zona-admin").hidden = false;
+        document.getElementById("mensaje-login").textContent = "";
+
+        document.getElementById("editar-titulo").value = contenido.titulo;
+        document.getElementById("editar-descripcion").value = contenido.descripcion;
+        document.getElementById("editar-acerca").value = contenido.acerca;
+        document.getElementById("editar-servicios").value = contenido.servicios
+          .map(function(servicio) {
+            return servicio.nombre + " | " + servicio.descripcion;
+          })
+          .join("\n");
+
+        document.getElementById("editar-whatsapp").value = contenido.whatsapp;
+        document.getElementById("editar-telegram").value = contenido.telegram;
+        document.getElementById("editar-instagram").value = contenido.instagram;
+        document.getElementById("editar-facebook").value = contenido.facebook;
+        document.getElementById("editar-correo").value = contenido.correo;
       } else {
-        id("mensaje-login").textContent = "Contraseña incorrecta. Intenta de nuevo.";
+        document.getElementById("mensaje-login").textContent =
+          "Contraseña incorrecta. Revisa que esté escrita exactamente: Laya2026";
       }
     });
 
-    id("formulario-edicion").addEventListener("submit", function (evento) {
+    document.getElementById("formulario-edicion").addEventListener("submit", function(evento) {
       evento.preventDefault();
 
-      const servicios = id("editar-servicios").value
+      const servicios = document.getElementById("editar-servicios").value
         .split("\n")
-        .map(linea => linea.trim())
+        .map(function(linea) { return linea.trim(); })
         .filter(Boolean)
-        .map(linea => {
+        .map(function(linea) {
           const partes = linea.split("|");
           return {
             nombre: (partes.shift() || "").trim(),
             descripcion: partes.join("|").trim() || "Consulta para más información."
           };
         })
-        .filter(servicio => servicio.nombre);
+        .filter(function(servicio) { return servicio.nombre; });
 
       if (servicios.length === 0) {
-        alert("Escribe al menos un tratamiento.");
+        alert("Escribe por lo menos un tratamiento.");
         return;
       }
 
       contenido = {
-        titulo: id("editar-titulo").value.trim(),
-        descripcion: id("editar-descripcion").value.trim(),
-        acerca: id("editar-acerca").value.trim(),
+        titulo: document.getElementById("editar-titulo").value.trim(),
+        descripcion: document.getElementById("editar-descripcion").value.trim(),
+        acerca: document.getElementById("editar-acerca").value.trim(),
         servicios: servicios,
-        whatsapp: id("editar-whatsapp").value.trim(),
-        telegram: id("editar-telegram").value.trim(),
-        instagram: id("editar-instagram").value.trim(),
-        facebook: id("editar-facebook").value.trim(),
-        correo: id("editar-correo").value.trim()
+        whatsapp: document.getElementById("editar-whatsapp").value.trim(),
+        telegram: document.getElementById("editar-telegram").value.trim(),
+        instagram: document.getElementById("editar-instagram").value.trim(),
+        facebook: document.getElementById("editar-facebook").value.trim(),
+        correo: document.getElementById("editar-correo").value.trim()
       };
 
-      guardarDato("laya_contenido", contenido);
-      mostrarPagina();
-      alert("Cambios guardados en este navegador.");
+      if (guardarDatos()) {
+        mostrarPagina();
+        alert("Cambios guardados en este navegador.");
+      }
     });
 
-    id("formulario-cita").addEventListener("submit", function (evento) {
+    document.getElementById("formulario-cita").addEventListener("submit", function(evento) {
       evento.preventDefault();
 
-      const datos = new FormData(evento.currentTarget);
-      const telefono = WHATSAPP_NEGOCIO.replace(/\D/g, "");
-
-      if (!telefono || telefono === "5210000000000") {
-        alert("Falta configurar el número real de WhatsApp del negocio en el código.");
+      if (WHATSAPP_NEGOCIO === "5210000000000") {
+        alert("Para recibir solicitudes, cambia WHATSAPP_NEGOCIO en el código por el número real del negocio.");
         return;
       }
 
+      const datos = new FormData(evento.currentTarget);
       const mensaje = [
         "Hola, quiero solicitar una cita en COSMIATRIA LAYA.",
         "Nombre: " + datos.get("nombre"),
-        "Teléfono: " + datos.get("telefono"),
-        "Correo: " + (datos.get("correo") || "No indicado"),
-        "Tratamiento: " + datos.get("tratamiento"),
-        "Fecha:

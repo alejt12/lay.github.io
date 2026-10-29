@@ -279,3 +279,392 @@
       color: var(--texto);
       background: var(--crema);
       box-shadow: 0 20px 80px #0005;
+      overflow: auto;
+    }
+
+    dialog::backdrop { background: #24171dbb; }
+
+    .admin-cabecera {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cerrar {
+      border: 0;
+      background: transparent;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    .admin-seccion {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid #f0e0e4;
+      border-radius: 14px;
+      background: white;
+    }
+
+    .admin-seccion h3 { margin-top: 0; }
+
+    .cita {
+      margin: 12px 0;
+      padding: 14px;
+      border-left: 4px solid var(--rosa);
+      border-radius: 8px;
+      background: var(--rosa-claro);
+      overflow-wrap: anywhere;
+    }
+
+    .cita button {
+      margin-top: 8px;
+      border: 0;
+      color: var(--rosa-oscuro);
+      background: none;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .nota {
+      color: var(--gris);
+      font-size: .88rem;
+    }
+
+    @media (max-width: 760px) {
+      header { flex-direction: column; }
+      nav { justify-content: center; gap: 12px; }
+      .portada { grid-template-columns: 1fr; padding: 64px 6%; }
+      .foto { min-height: 250px; }
+      section { padding: 58px 6%; }
+      .servicios { grid-template-columns: 1fr; }
+      .campos { grid-template-columns: 1fr; }
+      .ancho-completo { grid-column: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="marca" href="#inicio">COSMIATRIA LAYA</a>
+    <nav aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Tratamientos</a>
+      <a href="#acerca">Nosotras</a>
+      <a href="#agenda">Agendar cita</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="portada" id="inicio">
+      <div>
+        <span class="etiqueta">Cosmiatría y cuidado de la piel</span>
+        <h1 id="titulo-portada">Tu piel, en manos expertas</h1>
+        <p id="texto-portada">
+          Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte
+          bien contigo misma.
+        </p>
+        <a class="boton" href="#agenda">Agenda tu cita</a>
+      </div>
+      <div class="foto" aria-label="Decoración">✿</div>
+    </section>
+
+    <section id="servicios">
+      <h2 class="titulo">Nuestros tratamientos</h2>
+      <p class="intro">
+        Elige el servicio que te interesa y agenda una cita. Podemos orientarte
+        para encontrar el tratamiento adecuado para tu piel.
+      </p>
+
+      <div class="servicios" id="lista-servicios"></div>
+    </section>
+
+    <section class="acerca" id="acerca">
+      <h2 class="titulo">Un espacio para ti</h2>
+      <p id="texto-acerca">
+        En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una
+        atención cercana y personalizada. Cada piel es diferente; por eso,
+        conversamos contigo para conocer tus necesidades antes de recomendar
+        un tratamiento.
+      </p>
+    </section>
+
+    <section class="agenda" id="agenda">
+      <h2 class="titulo">Agenda tu cita</h2>
+      <p class="intro">Completa tus datos y solicita el día y horario que prefieres.</p>
+
+      <form class="formulario" id="formulario-cita">
+        <div class="campos">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" autocomplete="name" required>
+          </div>
+
+          <div class="campo">
+            <label for="telefono">Teléfono o WhatsApp</label>
+            <input id="telefono" name="telefono" type="tel" autocomplete="tel" required>
+          </div>
+
+          <div class="campo">
+            <label for="correo-cliente">Correo electrónico</label>
+            <input id="correo-cliente" name="correo" type="email" autocomplete="email">
+          </div>
+
+          <div class="campo">
+            <label for="tratamiento">Tratamiento</label>
+            <select id="tratamiento" name="tratamiento" required></select>
+          </div>
+
+          <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" name="fecha" type="date" required>
+          </div>
+
+          <div class="campo">
+            <label for="hora">Hora preferida</label>
+            <input id="hora" name="hora" type="time" required>
+          </div>
+
+          <div class="campo ancho-completo">
+            <label for="comentarios">Comentarios (opcional)</label>
+            <textarea id="comentarios" name="comentarios" placeholder="Cuéntanos si tienes alguna consulta."></textarea>
+          </div>
+
+          <div class="campo ancho-completo">
+            <button class="boton" type="submit">Solicitar cita</button>
+          </div>
+        </div>
+        <p class="nota">
+          Tu solicitud quedará pendiente de confirmación por parte de COSMIATRIA LAYA.
+        </p>
+      </form>
+    </section>
+
+    <section class="contacto" id="contacto">
+      <h2 class="titulo">Conversemos</h2>
+      <p class="intro">Síguenos o escríbenos por tu medio favorito.</p>
+
+      <div class="redes">
+        <a class="red-social" id="enlace-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="red-social" id="enlace-telegram" href="#" target="_blank" rel="noopener">Telegram</a>
+        <a class="red-social" id="enlace-instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a class="red-social" id="enlace-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
+        <a class="red-social" id="enlace-correo" href="#">Correo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="anio"></span> COSMIATRIA LAYA. Todos los derechos reservados.</div>
+    <button class="admin-acceso" id="abrir-admin" type="button">Acceso administradora</button>
+  </footer>
+
+  <dialog id="ventana-admin">
+    <div class="admin-cabecera">
+      <h2>Panel de administración</h2>
+      <button class="cerrar" id="cerrar-admin" type="button" aria-label="Cerrar">×</button>
+    </div>
+
+    <div id="login-admin">
+      <p>Inicia sesión para administrar la página.</p>
+      <form id="formulario-login">
+        <div class="campo">
+          <label for="clave-admin">Contraseña</label>
+          <input id="clave-admin" type="password" required>
+        </div>
+        <button class="boton" type="submit">Iniciar sesión</button>
+        <p id="error-login" class="nota" role="alert"></p>
+      </form>
+    </div>
+
+    <div id="contenido-admin" hidden>
+      <div class="admin-seccion">
+        <h3>Editar contenido</h3>
+        <form id="formulario-edicion">
+          <div class="campo">
+            <label for="editar-titulo">Título principal</label>
+            <input id="editar-titulo" required>
+          </div>
+
+          <div class="campo">
+            <label for="editar-portada">Descripción principal</label>
+            <textarea id="editar-portada" required></textarea>
+          </div>
+
+          <div class="campo">
+            <label for="editar-acerca">Texto “Un espacio para ti”</label>
+            <textarea id="editar-acerca" required></textarea>
+          </div>
+
+          <h3>Tratamientos (uno por línea)</h3>
+          <p class="nota">Formato de cada línea: Nombre del tratamiento | Descripción</p>
+          <div class="campo">
+            <textarea id="editar-servicios" required></textarea>
+          </div>
+
+          <h3>Enlaces de contacto</h3>
+          <div class="campo"><label for="editar-whatsapp">WhatsApp (enlace https://wa.me/...)</label><input id="editar-whatsapp" type="url"></div>
+          <div class="campo"><label for="editar-telegram">Telegram (enlace completo)</label><input id="editar-telegram" type="url"></div>
+          <div class="campo"><label for="editar-instagram">Instagram (enlace completo)</label><input id="editar-instagram" type="url"></div>
+          <div class="campo"><label for="editar-facebook">Facebook (enlace completo)</label><input id="editar-facebook" type="url"></div>
+          <div class="campo"><label for="editar-correo">Correo de contacto</label><input id="editar-correo" type="email"></div>
+
+          <button class="boton" type="submit">Guardar cambios</button>
+        </form>
+      </div>
+
+      <div class="admin-seccion">
+        <h3>Solicitudes de citas</h3>
+        <div id="lista-citas"></div>
+      </div>
+
+      <button class="boton" id="cerrar-sesion" type="button">Cerrar sesión</button>
+    </div>
+  </dialog>
+
+  <script>
+    /*
+      IMPORTANTE:
+      Esta versión sirve como demostración para una página estática en GitHub Pages.
+      La contraseña, los cambios y las citas se guardan en el navegador (localStorage);
+      no hay una base de datos compartida y la contraseña puede verse en el código fuente.
+      No uses esta protección para información privada ni para un sitio real con clientes.
+      Para producción, usa un backend con autenticación y base de datos.
+      Cambia la contraseña y los enlaces de ejemplo antes de publicar.
+    */
+
+    const ADMIN_PASSWORD = "Laya2026!";
+
+    const contenidoInicial = {
+      titulo: "Tu piel, en manos expertas",
+      portada: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
+      acerca: "En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.",
+      servicios: [
+        { nombre: "Limpieza facial", descripcion: "Un cuidado profundo para ayudar a mantener tu piel limpia y fresca." },
+        { nombre: "Tratamiento personalizado", descripcion: "Una opción adaptada a las necesidades y objetivos de tu piel." },
+        { nombre: "Hidratación facial", descripcion: "Un momento de cuidado para devolverle confort e hidratación a tu piel." }
+      ],
+      whatsapp: "https://wa.me/5210000000000",
+      telegram: "https://t.me/",
+      instagram: "https://instagram.com/",
+      facebook: "https://facebook.com/",
+      correo: "hola@cosmiatrialaya.com"
+    };
+
+    const guardar = (clave, valor) => localStorage.setItem(clave, JSON.stringify(valor));
+    const leer = (clave, valorInicial) => {
+      try {
+        const valor = JSON.parse(localStorage.getItem(clave));
+        return valor ?? valorInicial;
+      } catch {
+        return valorInicial;
+      }
+    };
+
+    let contenido = leer("laya_contenido", contenidoInicial);
+    let citas = leer("laya_citas", []);
+
+    const porId = id => document.getElementById(id);
+    porId("anio").textContent = new Date().getFullYear();
+
+    function mostrarContenido() {
+      porId("titulo-portada").textContent = contenido.titulo;
+      porId("texto-portada").textContent = contenido.portada;
+      porId("texto-acerca").textContent = contenido.acerca;
+
+      const servicios = porId("lista-servicios");
+      const selector = porId("tratamiento");
+      servicios.replaceChildren();
+      selector.replaceChildren();
+
+      contenido.servicios.forEach((servicio, indice) => {
+        const articulo = document.createElement("article");
+        articulo.className = "tarjeta";
+
+        const icono = document.createElement("div");
+        icono.className = "icono";
+        icono.textContent = ["✿", "♡", "✧"][indice % 3];
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = servicio.nombre;
+
+        const descripcion = document.createElement("p");
+        descripcion.textContent = servicio.descripcion;
+
+        articulo.append(icono, titulo, descripcion);
+        servicios.appendChild(articulo);
+
+        const opcion = document.createElement("option");
+        opcion.value = servicio.nombre;
+        opcion.textContent = servicio.nombre;
+        selector.appendChild(opcion);
+      });
+
+      const enlaces = {
+        "enlace-whatsapp": contenido.whatsapp,
+        "enlace-telegram": contenido.telegram,
+        "enlace-instagram": contenido.instagram,
+        "enlace-facebook": contenido.facebook
+      };
+
+      for (const [id, url] of Object.entries(enlaces)) {
+        const enlace = porId(id);
+        enlace.href = url || "#";
+        enlace.hidden = !url;
+      }
+
+      const correo = porId("enlace-correo");
+      correo.href = contenido.correo ? `mailto:${contenido.correo}` : "#";
+      correo.hidden = !contenido.correo;
+    }
+
+    function cargarEdicion() {
+      porId("editar-titulo").value = contenido.titulo;
+      porId("editar-portada").value = contenido.portada;
+      porId("editar-acerca").value = contenido.acerca;
+      porId("editar-servicios").value = contenido.servicios
+        .map(servicio => `\({servicio.nombre} | \){servicio.descripcion}`)
+        .join("\n");
+      porId("editar-whatsapp").value = contenido.whatsapp;
+      porId("editar-telegram").value = contenido.telegram;
+      porId("editar-instagram").value = contenido.instagram;
+      porId("editar-facebook").value = contenido.facebook;
+      porId("editar-correo").value = contenido.correo;
+    }
+
+    function mostrarCitas() {
+      const lista = porId("lista-citas");
+      lista.replaceChildren();
+
+      if (citas.length === 0) {
+        lista.textContent = "Todavía no hay solicitudes de citas.";
+        return;
+      }
+
+      citas.forEach((cita, indice) => {
+        const caja = document.createElement("div");
+        caja.className = "cita";
+
+        const datos = document.createElement("div");
+        datos.textContent =
+          `\({cita.nombre} — \){cita.tratamiento} — \({cita.fecha} a las \){cita.hora}`;
+
+        const contacto = document.createElement("div");
+        contacto.textContent =
+          `Teléfono: \({cita.telefono}\){cita.correo ? " | Correo: " + cita.correo : ""}`;
+
+        const comentarios = document.createElement("div");
+        comentarios.textContent = cita.comentarios ? `Comentarios: ${cita.comentarios}` : "";
+
+        const eliminar = document.createElement("button");
+        eliminar.type = "button";
+        eliminar.textContent = "Eliminar solicitud";
+        eliminar.addEventListener("click", () => {
+          citas.splice(indice, 1);
+          guardar("laya_citas", citas);
+          mostrarCitas();
+        });
+
+        caja.append(datos, contacto);
+        if (cita.comentarios) caja.appendChild(comentarios);

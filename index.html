@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmiatría Laya | Lic. Laiza González Robles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
@@ -13,11 +14,14 @@
             --azul: #2196F3;
             --verde: #4CAF50;
             --whatsapp: #25D366;
+            --ig: #E4405F;
+            --fb: #1877F2;
             --gris: #F5F5F5;
             --texto: #333;
             --sombra: 0 4px 15px rgba(0,0,0,0.1);
         }
-        body { background: #FFF; color: var(--texto); line-height: 1.6; }
+        body { background: #FFF; color: var(--texto); line-height: 1.6; padding-top: 0; transition: padding-top 0.3s; }
+        body.modo-admin { padding-top: 52px; }
 
         header {
             background: linear-gradient(135deg, var(--rosa), var(--lila));
@@ -50,16 +54,19 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); color: white; text-decoration: none; }
         .btn-dorado { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #2C2000; }
         .btn-rosa { background: linear-gradient(135deg, #E91E8C, #FF6AB3); }
         .btn-lila { background: linear-gradient(135deg, #9C27B0, #CE93D8); }
         .btn-azul { background: linear-gradient(135deg, #2196F3, #64B5F6); }
         .btn-verde { background: linear-gradient(135deg, #4CAF50, #81C784); }
         .btn-whatsapp { background: linear-gradient(135deg, #25D366, #52E085); }
+        .btn-ig { background: linear-gradient(135deg, #E4405F, #F783AC); }
+        .btn-fb { background: linear-gradient(135deg, #1877F2, #69A0F9); }
         .sin-numero { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
 
         section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
@@ -82,6 +89,7 @@
         }
         .lista-servicios { list-style: none; padding: 0; }
         .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
+        .modo-admin .lista-servicios li:hover { background: #F9F0FC; }
 
         .galeria {
             display: grid;
@@ -100,24 +108,6 @@
             justify-content: center;
         }
         .foto-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .cita {
-            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-            border-left: 5px solid var(--azul);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-        }
-        .cita .estado {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-        .estado-pendiente { background: #FFF3CD; color: #856404; }
-        .estado-confirmada { background: #D4EDDA; color: #155724; }
 
         .formulario-cita, .formulario-opinion {
             background: #F8F0FC;
@@ -152,8 +142,6 @@
         }
         .opinion .estrellitas { font-size: 18px; color: #FFD700; }
 
-        .bandeja { background: #F3E5F5; border-radius: 12px; padding: 1rem; margin-top: 1rem; }
-
         footer {
             background: #2C2C2C;
             color: white;
@@ -163,6 +151,7 @@
         }
         footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
 
+        /* BOTÓN CANDADO — CORREGIDO */
         .candado-btn {
             position: fixed;
             bottom: 20px;
@@ -179,7 +168,13 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.35);
             z-index: 1000;
+            border: none;
+            outline: none;
+            transition: background 0.3s;
         }
+        .candado-btn:hover { background: var(--lila); }
+
+        /* MODALES */
         .modal-fondo {
             display: none;
             position: fixed;
@@ -190,6 +185,8 @@
             align-items: center;
             justify-content: center;
         }
+        .modal-fondo.activo { display: flex; }
+
         .modal-caja {
             background: white;
             padding: 2rem;
@@ -205,91 +202,110 @@
             background: #E53935;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 8px;
             margin-top: 10px;
             cursor: pointer;
             width: 100%;
             font-size: 0.95rem;
         }
-        .eliminar-elemento {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(0,0,0,0.65);
+        .boton-cerrar:hover { background: #C62828; }
+
+        /* Barra de edición */
+        .barra-edicion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--lila), var(--rosa));
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-weight: bold;
+            padding: 10px 20px;
+            z-index: 3000;
             display: none;
-        }
-        .modo-admin .eliminar-elemento {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .contenedor-relativo { position: relative; }
+        .modo-admin .barra-edicion { display: flex; }
+        .barra-edicion button {
+            background: white;
+            color: var(--lila);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+        .barra-edicion button:hover { opacity: 0.9; }
+
+        /* Edición en línea */
+        [contenteditable="true"]:hover {
+            outline: 2px dashed var(--lila);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+        [contenteditable="true"]:focus {
+            outline: 2px solid var(--lila);
+            background: #F9F0FC;
+            border-radius: 4px;
+        }
         .solo-admin { display: none; }
         .modo-admin .solo-admin { display: block; }
     </style>
 </head>
-<body>
+<body id="cuerpoPagina">
 
-<div class="candado-btn" onclick="abrirModal()">🔒</div>
+<!-- Barra de edición -->
+<div class="barra-edicion">
+    <span>✅ Modo Edición Activo — Haz clic en cualquier texto para modificarlo</span>
+    <div>
+        <button onclick="guardarCambios()">💾 Guardar</button>
+        <button onclick="cerrarSesion()">🚪 Salir</button>
+    </div>
+</div>
 
+<!-- BOTÓN CANDADO FUNCIONAL -->
+<button class="candado-btn" id="botonCandado" type="button">🔒</button>
+
+<!-- Modal de Inicio de Sesión -->
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
         <h3>🔐 Acceso de Administración</h3>
-        <p style="text-align:center; color:#666; font-size:0.9rem;">Solo la Lic. Laiza puede entrar</p>
-        <input type="password" id="clave" placeholder="Escribe la contraseña">
-        <button class="btn btn-lila" style="width:100%; margin-top:8px;" onclick="verificar()">Entrar al Panel</button>
-        <button class="boton-cerrar" onclick="cerrarModal()">Cerrar</button>
+        <p style="text-align:center; color:#666; font-size:0.9rem; margin-bottom:1rem;">Solo la Lic. Laiza puede entrar</p>
+        <input type="password" id="claveIngreso" placeholder="Escribe la contraseña" style="margin-bottom:10px;">
+        <p id="mensajeError" style="color:red; text-align:center; display:none;">Contraseña incorrecta</p>
+        <button class="btn btn-lila" style="width:100%; margin-top:8px;" id="botonEntrar">Entrar</button>
+        <button class="boton-cerrar" id="botonCerrarLogin">Cerrar</button>
     </div>
 </div>
 
-<div class="modal-fondo" id="panelAdmin">
+<!-- Panel de Configuración -->
+<div class="modal-fondo" id="modalPanel">
     <div class="modal-caja">
-        <h3>⚙️ Panel de Control — Cosmiatría Laya</h3>
-
-        <div>
-            <label>✏️ Editar Presentación (encabezado):</label>
-            <textarea id="editarBienvenida" rows="3" placeholder="Escribe aquí tu presentación..."></textarea>
+        <h3>⚙️ Configuración</h3>
+        <div style="margin-bottom:1rem;">
+            <label style="display:block; margin-bottom:4px;">🔗 Enlace de Facebook:</label>
+            <input type="url" id="enlaceFacebook" placeholder="https://facebook.com/tu.pagina">
         </div>
-
-        <div>
-            <label>💆‍♀️ Editar Servicios (uno por línea):</label>
-            <textarea id="editarServicios" rows="6" placeholder="Limpieza facial profesional&#10;Hidratación y nutrición de piel..."></textarea>
-        </div>
-
-        <div>
-            <label>📸 Subir Foto de Trabajo:</label>
-            <input type="file" id="subirFoto" accept="image/*">
-            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar a Galería</button>
-        </div>
-
-        <div>
-            <label>🔗 Número de WhatsApp (solo números):</label>
+        <div style="margin-bottom:1rem;">
+            <label style="display:block; margin-bottom:4px;">📱 WhatsApp (solo números con código país):</label>
             <input type="text" id="numeroWhatsApp" placeholder="Ej: 521234567890">
-            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar Número</button>
         </div>
-
-        <div>
-            <label>📍 Editar Contacto y Ubicación:</label>
-            <textarea id="editarContacto" rows="4" placeholder="Tu nombre y dirección..."></textarea>
+        <div style="margin-bottom:1rem;">
+            <label style="display:block; margin-bottom:4px;">📍 Dirección:</label>
+            <textarea id="editarDireccion" rows="2" placeholder="Tu dirección..."></textarea>
         </div>
-
-        <button class="btn btn-verde" style="width:100%; margin-top:14px;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
-        <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
+        <button class="btn btn-verde" style="width:100%; margin-top:8px;" id="botonGuardarConfig">💾 Guardar Todo</button>
+        <button class="boton-cerrar" id="botonCerrarPanel">Cerrar</button>
     </div>
 </div>
 
-<header id="seccionBienvenida">
-    <h1>✨ Cosmiatría Laya ✨</h1>
-    <p>Lic. Laiza González Robles</p>
-    <p id="textoBienvenida"><em>Belleza, cuidado y bienestar para tu piel</em></p>
+<header>
+    <h1 contenteditable="true">✨ Cosmiatría Laya ✨</h1>
+    <p contenteditable="true">Lic. Laiza González Robles</p>
+    <p contenteditable="true"><em>Belleza, cuidado y bienestar para tu piel</em></p>
 </header>
 
 <nav class="nav-botones">
@@ -298,218 +314,80 @@
     <a href="#agendar" class="btn btn-azul">📅 Agendar Cita</a>
     <a href="#opiniones" class="btn btn-dorado">⭐ Opiniones</a>
     <a href="#contacto" class="btn btn-verde">📍 Contacto</a>
-    <a id="enlaceWhatsApp" href="#" target="_blank" class="btn btn-whatsapp sin-numero">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/skin_carelaya" target="_blank" class="btn btn-ig">
+        <i class="fa fa-instagram"></i> Instagram
+    </a>
+    <a id="enlaceFB" href="#" target="_blank" class="btn btn-fb">
+        <i class="fa fa-facebook"></i> Facebook
+    </a>
+    <a id="enlaceWA" href="#" target="_blank" class="btn btn-whatsapp sin-numero">
+        <i class="fa fa-whatsapp"></i> WhatsApp
+    </a>
 </nav>
 
 <section id="servicios" class="tarjeta">
     <h2>💆‍♀️ Nuestros Servicios</h2>
-    <ul id="listaServicios" class="lista-servicios">
-        <li>✅ Limpieza facial profesional</li>
-        <li>✅ Hidratación y nutrición de piel</li>
-        <li>✅ Tratamientos para pieles sensibles</li>
-        <li>✅ Asesoría personalizada de cuidado diario</li>
-        <li>✅ Y mucho más — ¡consúltame!</li>
+    <ul class="lista-servicios">
+        <li contenteditable="true">✅ Limpieza facial profesional</li>
+        <li contenteditable="true">✅ Hidratación y nutrición de piel</li>
+        <li contenteditable="true">✅ Tratamientos para pieles sensibles</li>
+        <li contenteditable="true">✅ Asesoría personalizada de cuidado diario</li>
+        <li contenteditable="true">✅ Y mucho más — ¡consúltame!</li>
     </ul>
-</section>
-
-<section id="trabajos" class="tarjeta">
-    <h2>📸 Mis Trabajos</h2>
-    <div class="galeria" id="contenedorFotos">
-        <div class="foto-item contenedor-relativo">
-            <span style="color:#888;">Fotos que agregues aparecerán aquí</span>
-            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
-        </div>
-    </div>
-</section>
-
-<section id="agendar" class="tarjeta">
-    <h2>📅 Agendar tu Cita</h2>
-
-    <div class="formulario-cita">
-        <h3>📝 Llena tus datos y elige tu fecha</h3>
-        <div class="fila">
-            <div class="campo">
-                <label>Tu Nombre</label>
-                <input type="text" id="clienteNombre" placeholder="Escribe tu nombre">
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="campo">
-                <label>Día</label>
-                <select id="clienteDia"></select>
-            </div>
-            <div class="campo">
-                <label>Mes</label>
-                <select id="clienteMes" onchange="actualizarDias()">
-                    <option value="0">Enero</option>
-                    <option value="1">Febrero</option>
-                    <option value="2">Marzo</option>
-                    <option value="3">Abril</option>
-                    <option value="4">Mayo</option>
-                    <option value="5">Junio</option>
-                    <option value="6">Julio</option>
-                    <option value="7">Agosto</option>
-                    <option value="8">Septiembre</option>
-                    <option value="9">Octubre</option>
-                    <option value="10">Noviembre</option>
-                    <option value="11">Diciembre</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Año</label>
-                <select id="clienteAnio" onchange="actualizarDias()"></select>
-            </div>
-        </div>
-
-        <div class="fila">
-            <div class="campo">
-                <label>Hora</label>
-                <select id="clienteHora">
-                    <option value="09:00">09:00 AM</option>
-                    <option value="09:30">09:30 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="10:30">10:30 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                    <option value="12:30">12:30 PM</option>
-                    <option value="13:00">01:00 PM</option>
-                    <option value="13:30">01:30 PM</option>
-                    <option value="14:00">02:00 PM</option>
-                    <option value="14:30">02:30 PM</option>
-                    <option value="15:00">03:00 PM</option>
-                    <option value="15:30">03:30 PM</option>
-                    <option value="16:00">04:00 PM</option>
-                    <option value="16:30">04:30 PM</option>
-                    <option value="17:00">05:00 PM</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Tratamiento</label>
-                <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
-            </div>
-        </div>
-
-        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="clienteAgendar()">✅ Enviar Cita</button>
-    </div>
-
-    <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
-    <div id="contenedorCitas">
-        <p style="color:#777; text-align:center;">Todavía no hay citas. ¡Sé el primero en agendar!</p>
-    </div>
-</section>
-
-<section id="opiniones" class="tarjeta">
-    <h2>⭐ Opiniones de Clientes</h2>
-
-    <div class="formulario-opinion">
-        <h3>💬 Deja tu opinión</h3>
-        <div class="fila">
-            <div class="campo">
-                <label>Tu Nombre</label>
-                <input type="text" id="opinionNombre" placeholder="Escribe tu nombre">
-            </div>
-            <div class="campo">
-                <label>Tu Correo Electrónico</label>
-                <input type="email" id="opinionCorreo" placeholder="correo@ejemplo.com">
-            </div>
-        </div>
-
-        <label style="text-align:center; display:block; margin-top:8px;">Calificación</label>
-        <div class="estrellas" id="contenedorEstrellas">
-            <span class="estrella" data-valor="1">★</span>
-            <span class="estrella" data-valor="2">★</span>
-            <span class="estrella" data-valor="3">★</span>
-            <span class="estrella" data-valor="4">★</span>
-            <span class="estrella" data-valor="5">★</span>
-        </div>
-        <input type="hidden" id="calificacion" value="0">
-
-        <div style="margin-top:10px;">
-            <label>Tu Comentario</label>
-            <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
-        </div>
-
-        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarOpinion()">⭐ Enviar Opinión</button>
-    </div>
-
-    <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
-    <div id="contenedorOpiniones">
-        <p style="color:#777; text-align:center;">Todavía no hay opiniones. ¡Sé el primero en opinar!</p>
-    </div>
-
-    <div class="bandeja solo-admin">
-        <h3 style="text-align:center; color:var(--lila); margin-bottom:1rem;">📩 Bandeja de Opiniones — Solo Laiza</h3>
-        <div id="bandejaOpiniones">
-            <p style="color:#777; text-align:center;">Aquí aparecen todas las opiniones con correo</p>
-        </div>
-    </div>
 </section>
 
 <section id="contacto" class="tarjeta">
     <h2>📍 Ubicación y Contacto</h2>
-    <div id="textoContacto">
-        <p><strong>Lic. Laiza González Robles</strong></p>
-        <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a></p>
-        <p id="lineaWhatsApp">💬 WhatsApp: <em>Pendiente de configurar</em></p>
-        <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
-        <p>✉️ Escríbeme o agenda tu cita — ¡Te espero!</p>
-    </div>
+    <p><strong>Lic. Laiza González Robles</strong></p>
+    <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
+    <p id="textoWA">💬 WhatsApp: <em>Pendiente de configurar</em></p>
+    <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
 </section>
 
 <footer>
     <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
-    <p><a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
+    <p><a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
     <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
 </footer>
 
 <script>
+// Contraseña de acceso
 const CLAVE_CORRECTA = "laya2026";
-const ID_NUBE = "cosmiatria_laya_001";
-const NOMBRES_MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 let modoAdmin = false;
-let calificacionActual = 0;
 
-window.onload = function() {
-    inicializarFechas();
-    inicializarEstrellas();
-    cargarDesdeNube();
-};
+// === EVENTOS — TODO CORREGIDO ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Botón candado
+    document.getElementById('botonCandado').addEventListener('click', abrirModalLogin);
+    
+    // Botones del modal login
+    document.getElementById('botonEntrar').addEventListener('click', verificarClave);
+    document.getElementById('botonCerrarLogin').addEventListener('click', cerrarModalLogin);
+    
+    // Botones del panel
+    document.getElementById('botonGuardarConfig').addEventListener('click', guardarConfiguracion);
+    document.getElementById('botonCerrarPanel').addEventListener('click', cerrarPanel);
+    
+    // Cargar datos guardados
+    cargarDatosGuardados();
+});
 
-// === ESTRELLAS PARA CALIFICAR ===
-function inicializarEstrellas() {
-    const estrellas = document.querySelectorAll('.estrella');
-    estrellas.forEach(estrella => {
-        estrella.addEventListener('click', function() {
-            calificacionActual = parseInt(this.dataset.valor);
-            document.getElementById('calificacion').value = calificacionActual;
-            estrellas.forEach((e, i) => {
-                e.classList.toggle('activa', i < calificacionActual);
-            });
-        });
-        estrella.addEventListener('mouseover', function() {
-            const valor = parseInt(this.dataset.valor);
-            estrellas.forEach((e, i) => {
-                e.style.color = i < valor ? '#FFD700' : '#CCC';
-            });
-        });
-        estrella.addEventListener('mouseout', function() {
-            estrellas.forEach((e, i) => {
-                e.style.color = i < calificacionActual ? '#FFD700' : '#CCC';
-            });
-        });
-    });
+// === FUNCIONES DEL CANDADO ===
+function abrirModalLogin() {
+    document.getElementById('modalLogin').classList.add('activo');
+    document.getElementById('claveIngreso').value = '';
+    document.getElementById('mensajeError').style.display = 'none';
 }
 
-function inicializarFechas() {
-    const anioActual = new Date().getFullYear();
-    const selectAnio = document.getElementById('clienteAnio');
-    selectAnio.innerHTML = `<option value="${anioActual}">${anioActual}</option><option value="${anioActual+1}">${anioActual+1}</option>`;
-    actualizarDias();
+function cerrarModalLogin() {
+    document.getElementById('modalLogin').classList.remove('activo');
 }
 
-function actualizarDias() {
-    const mes = parseInt(document.getElementById('clienteMes').value);
-    const anio = parseInt(document.getElementById('clienteAnio').value);
-    const diasEnMes = new
+function verificarClave() {
+    const claveIngresada = document.getElementById('claveIngreso').value.trim();
+    
+    if (claveIngresada === CLAVE_CORRECTA) {
+        // Contraseña correcta
+        modoAdmin = true;
+        document.getElementById('cuerpoPagina').classList.add('modo-admin');
+        cerrar

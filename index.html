@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="COSMIATRIA LAYA: tratamientos personalizados para el cuidado de tu piel.">
+  <meta name="description" content="COSMIATRIA LAYA: cuidado personalizado para tu piel.">
   <title>COSMIATRIA LAYA</title>
 
   <style>
@@ -17,15 +17,14 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      line-height: 1.6;
       color: var(--texto);
       background: var(--crema);
-      line-height: 1.6;
     }
 
     header {
@@ -245,16 +244,18 @@
     .admin-acceso {
       display: block;
       margin: 8px auto 0;
-      padding: 5px;
-      border: 0;
+      padding: 7px 12px;
+      border: 1px solid #f5dce3;
+      border-radius: 20px;
       background: transparent;
-      color: #f5dce3;
-      text-decoration: underline;
+      color: white;
       cursor: pointer;
       font: inherit;
     }
 
-    /* Panel de administración */
+    .admin-acceso:hover { background: var(--rosa-oscuro); }
+
+    /* Ventana del panel administrador */
     #panel-admin {
       position: fixed;
       inset: 0;
@@ -263,7 +264,7 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      background: rgba(36, 23, 29, .78);
+      background: rgba(36, 23, 29, .8);
     }
 
     .panel-contenido {
@@ -335,7 +336,7 @@
 <body>
   <header>
     <a class="marca" href="#inicio">COSMIATRIA LAYA</a>
-    <nav>
+    <nav aria-label="Navegación">
       <a href="#inicio">Inicio</a>
       <a href="#servicios">Tratamientos</a>
       <a href="#acerca">Nosotras</a>
@@ -434,6 +435,7 @@
 
   <footer>
     <div>© <span id="anio"></span> COSMIATRIA LAYA. Todos los derechos reservados.</div>
+
     <button
       class="admin-acceso"
       type="button"
@@ -441,7 +443,6 @@
     >Acceso administradora</button>
   </footer>
 
-  <!-- Panel de administración -->
   <div id="panel-admin" role="dialog" aria-modal="true" aria-label="Panel de administración">
     <div class="panel-contenido">
       <div class="panel-cabecera">
@@ -451,7 +452,7 @@
 
       <div id="zona-login">
         <p>Ingresa la contraseña de administradora.</p>
-        <form id="formulario-login">
+        <form id="formulario-login" onsubmit="return iniciarSesionAdmin(event)">
           <div class="campo">
             <label for="contrasena-admin">Contraseña</label>
             <input id="contrasena-admin" type="password" autocomplete="current-password" required>
@@ -464,7 +465,7 @@
       <div id="zona-admin" style="display:none">
         <div class="panel-seccion">
           <h3>Editar página</h3>
-          <form id="formulario-edicion">
+          <form id="formulario-edicion" onsubmit="return guardarCambios(event)">
             <div class="campo">
               <label for="editar-titulo">Título principal</label>
               <input id="editar-titulo" required>
@@ -486,7 +487,7 @@
             </div>
 
             <div class="campo">
-              <label for="editar-whatsapp">Enlace de WhatsApp (https://wa.me/...)</label>
+              <label for="editar-whatsapp">WhatsApp (ejemplo: https://wa.me/521...)</label>
               <input id="editar-whatsapp" type="url">
             </div>
 
@@ -517,9 +518,7 @@
         <div class="panel-seccion">
           <h3>Solicitudes de citas</h3>
           <div id="lista-citas"></div>
-          <p class="nota">
-            En esta versión solo aparecen las solicitudes guardadas en el mismo navegador.
-          </p>
+          <p class="nota">Esta demostración solo muestra citas guardadas en este navegador.</p>
         </div>
 
         <button class="boton" type="button" onclick="cerrarSesionAdmin()">Cerrar sesión</button>
@@ -529,20 +528,14 @@
 
   <script>
     /*
-      CONFIGURACIÓN:
-      Cambia la contraseña y los enlaces de ejemplo antes de publicar.
-
-      IMPORTANTE:
-      GitHub Pages solo publica páginas estáticas. Esta contraseña no es segura:
-      cualquier persona puede encontrarla en el código. Las citas y los cambios
-      se guardan solo en el navegador que los creó; no se comparten entre clientes
-      y administradora. Para un sitio real necesitas servidor, base de datos y
-      autenticación segura.
+      GitHub Pages no tiene base de datos ni servidor de inicio de sesión.
+      La contraseña está en el código y las citas/cambios se guardan solo
+      en el navegador donde se usó la página. No es seguridad real.
     */
 
-    const ADMIN_PASSWORD = "Laya2026!";
+    var ADMIN_PASSWORD = "Laya2026!";
 
-    const datosIniciales = {
+    var datosIniciales = {
       titulo: "Tu piel, en manos expertas",
       descripcion: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
       acerca: "En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.",
@@ -558,9 +551,9 @@
       correo: "hola@cosmiatrialaya.com"
     };
 
-    function leerDato(clave, valorPredeterminado) {
+    function cargarDato(clave, valorPredeterminado) {
       try {
-        const guardado = localStorage.getItem(clave);
+        var guardado = localStorage.getItem(clave);
         return guardado ? JSON.parse(guardado) : valorPredeterminado;
       } catch (error) {
         return valorPredeterminado;
@@ -571,112 +564,102 @@
       localStorage.setItem(clave, JSON.stringify(valor));
     }
 
-    let datosPagina = leerDato("laya_datos_pagina", datosIniciales);
-    let solicitudes = leerDato("laya_solicitudes", []);
-
-    function porId(id) {
-      return document.getElementById(id);
-    }
+    var datosPagina = cargarDato("laya_datos_pagina", datosIniciales);
+    var citas = cargarDato("laya_solicitudes", []);
 
     function abrirPanelAdmin() {
-      porId("panel-admin").style.display = "flex";
-      porId("zona-login").style.display = "block";
-      porId("zona-admin").style.display = "none";
-      porId("mensaje-login").textContent = "";
-      porId("contrasena-admin").value = "";
+      document.getElementById("panel-admin").style.display = "flex";
+      document.getElementById("zona-login").style.display = "block";
+      document.getElementById("zona-admin").style.display = "none";
+      document.getElementById("mensaje-login").textContent = "";
+      document.getElementById("contrasena-admin").value = "";
       setTimeout(function () {
-        porId("contrasena-admin").focus();
-      }, 50);
+        document.getElementById("contrasena-admin").focus();
+      }, 100);
     }
 
     function cerrarPanelAdmin() {
-      porId("panel-admin").style.display = "none";
+      document.getElementById("panel-admin").style.display = "none";
     }
 
     function cerrarSesionAdmin() {
-      porId("zona-admin").style.display = "none";
-      porId("zona-login").style.display = "block";
+      document.getElementById("zona-admin").style.display = "none";
+      document.getElementById("zona-login").style.display = "block";
       cerrarPanelAdmin();
     }
 
-    function mostrarPagina() {
-      porId("anio").textContent = new Date().getFullYear();
-      porId("titulo-portada").textContent = datosPagina.titulo;
-      porId("texto-portada").textContent = datosPagina.descripcion;
-      porId("texto-acerca").textContent = datosPagina.acerca;
+    function iniciarSesionAdmin(evento) {
+      evento.preventDefault();
 
-      const contenedorServicios = porId("lista-servicios");
-      const selector = porId("tratamiento");
-      contenedorServicios.innerHTML = "";
+      var clave = document.getElementById("contrasena-admin").value;
+
+      if (clave === ADMIN_PASSWORD) {
+        document.getElementById("zona-login").style.display = "none";
+        document.getElementById("zona-admin").style.display = "block";
+        document.getElementById("mensaje-login").textContent = "";
+        cargarFormularioEdicion();
+        mostrarCitas();
+      } else {
+        document.getElementById("mensaje-login").textContent =
+          "Contraseña incorrecta. Intenta de nuevo.";
+      }
+
+      return false;
+    }
+
+    function mostrarPagina() {
+      document.getElementById("anio").textContent = new Date().getFullYear();
+      document.getElementById("titulo-portada").textContent = datosPagina.titulo;
+      document.getElementById("texto-portada").textContent = datosPagina.descripcion;
+      document.getElementById("texto-acerca").textContent = datosPagina.acerca;
+
+      var lista = document.getElementById("lista-servicios");
+      var selector = document.getElementById("tratamiento");
+      lista.innerHTML = "";
       selector.innerHTML = "";
 
       datosPagina.servicios.forEach(function (servicio, indice) {
-        const tarjeta = document.createElement("article");
+        var tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta";
 
-        const icono = document.createElement("div");
+        var icono = document.createElement("div");
         icono.textContent = ["✿", "♡", "✧"][indice % 3];
         icono.style.fontSize = "2rem";
 
-        const titulo = document.createElement("h3");
+        var titulo = document.createElement("h3");
         titulo.textContent = servicio.nombre;
 
-        const descripcion = document.createElement("p");
+        var descripcion = document.createElement("p");
         descripcion.textContent = servicio.descripcion;
 
-        tarjeta.append(icono, titulo, descripcion);
-        contenedorServicios.appendChild(tarjeta);
+        tarjeta.appendChild(icono);
+        tarjeta.appendChild(titulo);
+        tarjeta.appendChild(descripcion);
+        lista.appendChild(tarjeta);
 
-        const opcion = document.createElement("option");
+        var opcion = document.createElement("option");
         opcion.value = servicio.nombre;
         opcion.textContent = servicio.nombre;
         selector.appendChild(opcion);
       });
 
-      ponerEnlace("enlace-whatsapp", datosPagina.whatsapp);
-      ponerEnlace("enlace-telegram", datosPagina.telegram);
-      ponerEnlace("enlace-instagram", datosPagina.instagram);
-      ponerEnlace("enlace-facebook", datosPagina.facebook);
-
-      porId("enlace-correo").href = datosPagina.correo
-        ? "mailto:" + datosPagina.correo
-        : "#";
-    }
-
-    function ponerEnlace(id, url) {
-      const enlace = porId(id);
-      enlace.href = url || "#";
+      document.getElementById("enlace-whatsapp").href = datosPagina.whatsapp || "#";
+      document.getElementById("enlace-telegram").href = datosPagina.telegram || "#";
+      document.getElementById("enlace-instagram").href = datosPagina.instagram || "#";
+      document.getElementById("enlace-facebook").href = datosPagina.facebook || "#";
+      document.getElementById("enlace-correo").href =
+        datosPagina.correo ? "mailto:" + datosPagina.correo : "#";
     }
 
     function cargarFormularioEdicion() {
-      porId("editar-titulo").value = datosPagina.titulo;
-      porId("editar-descripcion").value = datosPagina.descripcion;
-      porId("editar-acerca").value = datosPagina.acerca;
-      porId("editar-servicios").value = datosPagina.servicios
-        .map(function (servicio) {
+      document.getElementById("editar-titulo").value = datosPagina.titulo;
+      document.getElementById("editar-descripcion").value = datosPagina.descripcion;
+      document.getElementById("editar-acerca").value = datosPagina.acerca;
+
+      document.getElementById("editar-servicios").value =
+        datosPagina.servicios.map(function (servicio) {
           return servicio.nombre + " | " + servicio.descripcion;
-        })
-        .join("\n");
+        }).join("\n");
 
-      porId("editar-whatsapp").value = datosPagina.whatsapp;
-      porId("editar-telegram").value = datosPagina.telegram;
-      porId("editar-instagram").value = datosPagina.instagram;
-      porId("editar-facebook").value = datosPagina.facebook;
-      porId("editar-correo").value = datosPagina.correo;
-    }
-
-    function mostrarSolicitudes() {
-      const contenedor = porId("lista-citas");
-      contenedor.innerHTML = "";
-
-      if (solicitudes.length === 0) {
-        contenedor.textContent = "Todavía no hay solicitudes de citas en este navegador.";
-        return;
-      }
-
-      solicitudes.forEach(function (cita, indice) {
-        const elemento = document.createElement("div");
-        elemento.className = "cita";
-
-        const datos = document.createElement("p");
-        datos.textContent = cita.nombre + " — " + cita.tratamiento +
+      document.getElementById("editar-whatsapp").value = datosPagina.whatsapp;
+      document.getElementById("editar-teleg

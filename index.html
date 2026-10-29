@@ -242,20 +242,18 @@
     }
 
     .admin-acceso {
-      display: block;
-      margin: 8px auto 0;
-      padding: 7px 12px;
+      display: inline-block;
+      margin-top: 8px;
+      padding: 7px 14px;
       border: 1px solid #f5dce3;
       border-radius: 20px;
-      background: transparent;
       color: white;
-      cursor: pointer;
-      font: inherit;
+      text-decoration: none;
     }
 
     .admin-acceso:hover { background: var(--rosa-oscuro); }
 
-    /* Ventana del panel administrador */
+    /* El enlace #panel-admin hace aparecer el panel sin depender de JavaScript */
     #panel-admin {
       position: fixed;
       inset: 0;
@@ -264,8 +262,10 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      background: rgba(36, 23, 29, .8);
+      background: rgba(36, 23, 29, .82);
     }
+
+    #panel-admin:target { display: flex; }
 
     .panel-contenido {
       width: 100%;
@@ -291,6 +291,7 @@
       background: transparent;
       color: var(--texto);
       font-size: 2rem;
+      text-decoration: none;
       cursor: pointer;
     }
 
@@ -300,24 +301,6 @@
       border: 1px solid #f0e0e4;
       border-radius: 12px;
       background: white;
-    }
-
-    .cita {
-      margin: 12px 0;
-      padding: 12px;
-      border-left: 4px solid var(--rosa);
-      border-radius: 8px;
-      background: var(--rosa-claro);
-      overflow-wrap: anywhere;
-    }
-
-    .cita button {
-      margin-top: 8px;
-      border: 0;
-      background: transparent;
-      color: var(--rosa-oscuro);
-      text-decoration: underline;
-      cursor: pointer;
     }
 
     @media (max-width: 720px) {
@@ -336,7 +319,7 @@
 <body>
   <header>
     <a class="marca" href="#inicio">COSMIATRIA LAYA</a>
-    <nav aria-label="Navegación">
+    <nav aria-label="Navegación principal">
       <a href="#inicio">Inicio</a>
       <a href="#servicios">Tratamientos</a>
       <a href="#acerca">Nosotras</a>
@@ -413,7 +396,7 @@
           </div>
 
           <div class="campo ancho">
-            <button class="boton" type="submit">Solicitar cita</button>
+            <button class="boton" type="submit">Solicitar cita por WhatsApp</button>
           </div>
         </div>
         <p class="nota">La cita queda pendiente de confirmación por COSMIATRIA LAYA.</p>
@@ -435,24 +418,19 @@
 
   <footer>
     <div>© <span id="anio"></span> COSMIATRIA LAYA. Todos los derechos reservados.</div>
-
-    <button
-      class="admin-acceso"
-      type="button"
-      onclick="abrirPanelAdmin()"
-    >Acceso administradora</button>
+    <a class="admin-acceso" href="#panel-admin">Acceso administradora</a>
   </footer>
 
   <div id="panel-admin" role="dialog" aria-modal="true" aria-label="Panel de administración">
     <div class="panel-contenido">
       <div class="panel-cabecera">
         <h2>Administración de COSMIATRIA LAYA</h2>
-        <button class="cerrar" type="button" onclick="cerrarPanelAdmin()" aria-label="Cerrar">×</button>
+        <a class="cerrar" href="#inicio" aria-label="Cerrar">×</a>
       </div>
 
       <div id="zona-login">
         <p>Ingresa la contraseña de administradora.</p>
-        <form id="formulario-login" onsubmit="return iniciarSesionAdmin(event)">
+        <form id="formulario-login">
           <div class="campo">
             <label for="contrasena-admin">Contraseña</label>
             <input id="contrasena-admin" type="password" autocomplete="current-password" required>
@@ -462,10 +440,10 @@
         </form>
       </div>
 
-      <div id="zona-admin" style="display:none">
+      <div id="zona-admin" hidden>
         <div class="panel-seccion">
-          <h3>Editar página</h3>
-          <form id="formulario-edicion" onsubmit="return guardarCambios(event)">
+          <h3>Editar contenido</h3>
+          <form id="formulario-edicion">
             <div class="campo">
               <label for="editar-titulo">Título principal</label>
               <input id="editar-titulo" required>
@@ -514,28 +492,20 @@
             <button class="boton" type="submit">Guardar cambios</button>
           </form>
         </div>
-
-        <div class="panel-seccion">
-          <h3>Solicitudes de citas</h3>
-          <div id="lista-citas"></div>
-          <p class="nota">Esta demostración solo muestra citas guardadas en este navegador.</p>
-        </div>
-
-        <button class="boton" type="button" onclick="cerrarSesionAdmin()">Cerrar sesión</button>
       </div>
     </div>
   </div>
 
   <script>
     /*
-      GitHub Pages no tiene base de datos ni servidor de inicio de sesión.
-      La contraseña está en el código y las citas/cambios se guardan solo
-      en el navegador donde se usó la página. No es seguridad real.
+      Cambia estos datos por los enlaces reales del negocio.
+      El número de WhatsApp debe llevar código de país y solo números.
+      Ejemplo México: 5215512345678
     */
+    const ADMIN_PASSWORD = "Laya2026!";
+    const WHATSAPP_NEGOCIO = "5210000000000";
 
-    var ADMIN_PASSWORD = "Laya2026!";
-
-    var datosIniciales = {
+    const contenidoInicial = {
       titulo: "Tu piel, en manos expertas",
       descripcion: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
       acerca: "En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.",
@@ -551,115 +521,150 @@
       correo: "hola@cosmiatrialaya.com"
     };
 
-    function cargarDato(clave, valorPredeterminado) {
+    function cargarDato(clave, predeterminado) {
       try {
-        var guardado = localStorage.getItem(clave);
-        return guardado ? JSON.parse(guardado) : valorPredeterminado;
+        const dato = localStorage.getItem(clave);
+        return dato ? JSON.parse(dato) : predeterminado;
       } catch (error) {
-        return valorPredeterminado;
+        return predeterminado;
       }
     }
 
     function guardarDato(clave, valor) {
-      localStorage.setItem(clave, JSON.stringify(valor));
-    }
-
-    var datosPagina = cargarDato("laya_datos_pagina", datosIniciales);
-    var citas = cargarDato("laya_solicitudes", []);
-
-    function abrirPanelAdmin() {
-      document.getElementById("panel-admin").style.display = "flex";
-      document.getElementById("zona-login").style.display = "block";
-      document.getElementById("zona-admin").style.display = "none";
-      document.getElementById("mensaje-login").textContent = "";
-      document.getElementById("contrasena-admin").value = "";
-      setTimeout(function () {
-        document.getElementById("contrasena-admin").focus();
-      }, 100);
-    }
-
-    function cerrarPanelAdmin() {
-      document.getElementById("panel-admin").style.display = "none";
-    }
-
-    function cerrarSesionAdmin() {
-      document.getElementById("zona-admin").style.display = "none";
-      document.getElementById("zona-login").style.display = "block";
-      cerrarPanelAdmin();
-    }
-
-    function iniciarSesionAdmin(evento) {
-      evento.preventDefault();
-
-      var clave = document.getElementById("contrasena-admin").value;
-
-      if (clave === ADMIN_PASSWORD) {
-        document.getElementById("zona-login").style.display = "none";
-        document.getElementById("zona-admin").style.display = "block";
-        document.getElementById("mensaje-login").textContent = "";
-        cargarFormularioEdicion();
-        mostrarCitas();
-      } else {
-        document.getElementById("mensaje-login").textContent =
-          "Contraseña incorrecta. Intenta de nuevo.";
+      try {
+        localStorage.setItem(clave, JSON.stringify(valor));
+      } catch (error) {
+        alert("El navegador no permitió guardar los cambios.");
       }
+    }
 
-      return false;
+    let contenido = cargarDato("laya_contenido", contenidoInicial);
+
+    function id(nombre) {
+      return document.getElementById(nombre);
     }
 
     function mostrarPagina() {
-      document.getElementById("anio").textContent = new Date().getFullYear();
-      document.getElementById("titulo-portada").textContent = datosPagina.titulo;
-      document.getElementById("texto-portada").textContent = datosPagina.descripcion;
-      document.getElementById("texto-acerca").textContent = datosPagina.acerca;
+      id("anio").textContent = new Date().getFullYear();
+      id("titulo-portada").textContent = contenido.titulo;
+      id("texto-portada").textContent = contenido.descripcion;
+      id("texto-acerca").textContent = contenido.acerca;
 
-      var lista = document.getElementById("lista-servicios");
-      var selector = document.getElementById("tratamiento");
-      lista.innerHTML = "";
-      selector.innerHTML = "";
+      const lista = id("lista-servicios");
+      const selector = id("tratamiento");
+      lista.replaceChildren();
+      selector.replaceChildren();
 
-      datosPagina.servicios.forEach(function (servicio, indice) {
-        var tarjeta = document.createElement("article");
+      contenido.servicios.forEach((servicio, indice) => {
+        const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta";
 
-        var icono = document.createElement("div");
+        const icono = document.createElement("div");
         icono.textContent = ["✿", "♡", "✧"][indice % 3];
         icono.style.fontSize = "2rem";
 
-        var titulo = document.createElement("h3");
+        const titulo = document.createElement("h3");
         titulo.textContent = servicio.nombre;
 
-        var descripcion = document.createElement("p");
-        descripcion.textContent = servicio.descripcion;
+        const texto = document.createElement("p");
+        texto.textContent = servicio.descripcion;
 
-        tarjeta.appendChild(icono);
-        tarjeta.appendChild(titulo);
-        tarjeta.appendChild(descripcion);
+        tarjeta.append(icono, titulo, texto);
         lista.appendChild(tarjeta);
 
-        var opcion = document.createElement("option");
+        const opcion = document.createElement("option");
         opcion.value = servicio.nombre;
         opcion.textContent = servicio.nombre;
         selector.appendChild(opcion);
       });
 
-      document.getElementById("enlace-whatsapp").href = datosPagina.whatsapp || "#";
-      document.getElementById("enlace-telegram").href = datosPagina.telegram || "#";
-      document.getElementById("enlace-instagram").href = datosPagina.instagram || "#";
-      document.getElementById("enlace-facebook").href = datosPagina.facebook || "#";
-      document.getElementById("enlace-correo").href =
-        datosPagina.correo ? "mailto:" + datosPagina.correo : "#";
+      id("enlace-whatsapp").href = contenido.whatsapp || "#";
+      id("enlace-telegram").href = contenido.telegram || "#";
+      id("enlace-instagram").href = contenido.instagram || "#";
+      id("enlace-facebook").href = contenido.facebook || "#";
+      id("enlace-correo").href = contenido.correo ? "mailto:" + contenido.correo : "#";
     }
 
-    function cargarFormularioEdicion() {
-      document.getElementById("editar-titulo").value = datosPagina.titulo;
-      document.getElementById("editar-descripcion").value = datosPagina.descripcion;
-      document.getElementById("editar-acerca").value = datosPagina.acerca;
+    function cargarEdicion() {
+      id("editar-titulo").value = contenido.titulo;
+      id("editar-descripcion").value = contenido.descripcion;
+      id("editar-acerca").value = contenido.acerca;
+      id("editar-servicios").value = contenido.servicios
+        .map(servicio => servicio.nombre + " | " + servicio.descripcion)
+        .join("\n");
+      id("editar-whatsapp").value = contenido.whatsapp;
+      id("editar-telegram").value = contenido.telegram;
+      id("editar-instagram").value = contenido.instagram;
+      id("editar-facebook").value = contenido.facebook;
+      id("editar-correo").value = contenido.correo;
+    }
 
-      document.getElementById("editar-servicios").value =
-        datosPagina.servicios.map(function (servicio) {
-          return servicio.nombre + " | " + servicio.descripcion;
-        }).join("\n");
+    id("formulario-login").addEventListener("submit", function (evento) {
+      evento.preventDefault();
 
-      document.getElementById("editar-whatsapp").value = datosPagina.whatsapp;
-      document.getElementById("editar-teleg
+      if (id("contrasena-admin").value === ADMIN_PASSWORD) {
+        id("zona-login").hidden = true;
+        id("zona-admin").hidden = false;
+        id("mensaje-login").textContent = "";
+        cargarEdicion();
+      } else {
+        id("mensaje-login").textContent = "Contraseña incorrecta. Intenta de nuevo.";
+      }
+    });
+
+    id("formulario-edicion").addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      const servicios = id("editar-servicios").value
+        .split("\n")
+        .map(linea => linea.trim())
+        .filter(Boolean)
+        .map(linea => {
+          const partes = linea.split("|");
+          return {
+            nombre: (partes.shift() || "").trim(),
+            descripcion: partes.join("|").trim() || "Consulta para más información."
+          };
+        })
+        .filter(servicio => servicio.nombre);
+
+      if (servicios.length === 0) {
+        alert("Escribe al menos un tratamiento.");
+        return;
+      }
+
+      contenido = {
+        titulo: id("editar-titulo").value.trim(),
+        descripcion: id("editar-descripcion").value.trim(),
+        acerca: id("editar-acerca").value.trim(),
+        servicios: servicios,
+        whatsapp: id("editar-whatsapp").value.trim(),
+        telegram: id("editar-telegram").value.trim(),
+        instagram: id("editar-instagram").value.trim(),
+        facebook: id("editar-facebook").value.trim(),
+        correo: id("editar-correo").value.trim()
+      };
+
+      guardarDato("laya_contenido", contenido);
+      mostrarPagina();
+      alert("Cambios guardados en este navegador.");
+    });
+
+    id("formulario-cita").addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      const datos = new FormData(evento.currentTarget);
+      const telefono = WHATSAPP_NEGOCIO.replace(/\D/g, "");
+
+      if (!telefono || telefono === "5210000000000") {
+        alert("Falta configurar el número real de WhatsApp del negocio en el código.");
+        return;
+      }
+
+      const mensaje = [
+        "Hola, quiero solicitar una cita en COSMIATRIA LAYA.",
+        "Nombre: " + datos.get("nombre"),
+        "Teléfono: " + datos.get("telefono"),
+        "Correo: " + (datos.get("correo") || "No indicado"),
+        "Tratamiento: " + datos.get("tratamiento"),
+        "Fecha:

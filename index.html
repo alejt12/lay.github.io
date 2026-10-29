@@ -14,7 +14,6 @@
       --crema: #fffaf7;
       --texto: #392d31;
       --gris: #74676b;
-      --blanco: #fff;
     }
 
     * { box-sizing: border-box; }
@@ -36,16 +35,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
       padding: 15px 7%;
-      background: rgba(255, 250, 247, .97);
+      background: var(--crema);
       box-shadow: 0 2px 14px #392d3110;
     }
 
     .marca {
       color: var(--rosa-oscuro);
       font-family: Georgia, serif;
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: bold;
       text-decoration: none;
     }
@@ -54,7 +53,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
-      gap: 20px;
+      gap: 18px;
     }
 
     nav a {
@@ -64,48 +63,46 @@
 
     nav a:hover { color: var(--rosa); }
 
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
+
     .portada {
-      min-height: 75vh;
-      padding: 80px 8%;
+      min-height: 70vh;
+      padding: 75px 8%;
       display: grid;
       grid-template-columns: 1.1fr .9fr;
       align-items: center;
-      gap: 45px;
-      background:
-        radial-gradient(circle at 80% 35%, #f2dce2 0, transparent 36%),
-        linear-gradient(135deg, var(--crema), var(--rosa-claro));
+      gap: 40px;
+      background: linear-gradient(135deg, var(--crema), var(--rosa-claro));
     }
 
     .etiqueta {
       color: var(--rosa-oscuro);
       text-transform: uppercase;
-      letter-spacing: .16em;
+      letter-spacing: .15em;
       font-size: .8rem;
       font-weight: bold;
     }
 
-    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
-
-    h1 {
-      margin: 12px 0 18px;
+    .portada h1 {
+      margin: 12px 0;
       color: #513642;
       font-size: clamp(2.8rem, 6vw, 5rem);
       line-height: 1.05;
     }
 
     .portada p {
-      max-width: 570px;
+      max-width: 560px;
       color: var(--gris);
       font-size: 1.1rem;
     }
 
     .boton {
       display: inline-block;
+      padding: 12px 22px;
       border: 0;
-      border-radius: 30px;
-      padding: 13px 23px;
+      border-radius: 25px;
       background: var(--rosa);
-      color: var(--blanco);
+      color: white;
       font-weight: bold;
       text-decoration: none;
       cursor: pointer;
@@ -113,18 +110,17 @@
 
     .boton:hover { background: var(--rosa-oscuro); }
 
-    .foto {
-      min-height: 340px;
+    .decoracion {
+      min-height: 320px;
       display: grid;
       place-items: center;
-      border-radius: 48% 48% 24px 24px;
+      border-radius: 48% 48% 22px 22px;
       background: linear-gradient(145deg, #e9c7d0, #c98296);
       color: white;
       font-size: 5rem;
-      box-shadow: 0 20px 50px #91445c25;
     }
 
-    section { padding: 72px 8%; }
+    section { padding: 70px 8%; }
 
     .titulo {
       margin: 0 0 12px;
@@ -135,7 +131,7 @@
 
     .intro {
       max-width: 680px;
-      margin: 0 auto 38px;
+      margin: 0 auto 35px;
       color: var(--gris);
       text-align: center;
     }
@@ -147,21 +143,19 @@
     }
 
     .tarjeta {
-      padding: 26px;
+      padding: 24px;
       border: 1px solid #f0e0e4;
-      border-radius: 18px;
+      border-radius: 16px;
       background: white;
       box-shadow: 0 8px 24px #392d3108;
     }
-
-    .tarjeta .icono { font-size: 2rem; }
 
     .tarjeta h3 {
       margin: 8px 0;
       color: var(--rosa-oscuro);
     }
 
-    .tarjeta p { margin-bottom: 0; color: var(--gris); }
+    .tarjeta p { color: var(--gris); }
 
     .acerca {
       background: var(--rosa-claro);
@@ -178,41 +172,40 @@
 
     .formulario {
       max-width: 720px;
-      margin: 0 auto;
-      padding: 28px;
+      margin: auto;
+      padding: 26px;
       border: 1px solid #f0e0e4;
-      border-radius: 18px;
+      border-radius: 16px;
       background: var(--crema);
     }
 
     .campos {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 15px;
     }
+
+    .campo { margin-bottom: 14px; }
+    .ancho { grid-column: 1 / -1; }
 
     label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       font-weight: bold;
-      font-size: .93rem;
     }
 
     input, select, textarea {
       width: 100%;
-      min-height: 45px;
-      padding: 10px 12px;
+      min-height: 44px;
+      padding: 10px;
       border: 1px solid #ddcbd0;
-      border-radius: 9px;
+      border-radius: 8px;
       background: white;
       color: var(--texto);
       font: inherit;
     }
 
     textarea { min-height: 90px; resize: vertical; }
-
-    .campo { margin-bottom: 15px; }
-    .ancho-completo { grid-column: 1 / -1; }
 
     .nota {
       color: var(--gris);
@@ -221,17 +214,16 @@
 
     .redes {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
       margin-top: 22px;
     }
 
     .red-social {
-      display: inline-block;
-      padding: 10px 16px;
+      padding: 9px 16px;
       border: 1px solid #e7c9d2;
-      border-radius: 24px;
+      border-radius: 22px;
       color: var(--rosa-oscuro);
       background: white;
       font-weight: bold;
@@ -243,81 +235,75 @@
       background: var(--rosa);
     }
 
-    .contacto { text-align: center; }
-
     footer {
-      padding: 22px 7%;
+      padding: 22px;
       background: #513642;
       color: white;
       text-align: center;
-      font-size: .9rem;
     }
 
     .admin-acceso {
-      margin-top: 10px;
-      padding: 0;
+      display: block;
+      margin: 8px auto 0;
+      padding: 5px;
       border: 0;
       background: transparent;
       color: #f5dce3;
       text-decoration: underline;
       cursor: pointer;
       font: inherit;
-      font-size: .85rem;
     }
 
-    /* Ventana del panel de administración */
-    .modal {
+    /* Panel de administración */
+    #panel-admin {
       position: fixed;
       inset: 0;
-      z-index: 1000;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-      background: #24171dbb;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(36, 23, 29, .78);
     }
 
-    .modal[hidden] { display: none; }
-
-    .modal-contenido {
-      width: min(760px, 100%);
+    .panel-contenido {
+      width: 100%;
+      max-width: 760px;
       max-height: 90vh;
-      padding: 26px;
-      border-radius: 18px;
+      padding: 24px;
+      border-radius: 16px;
       background: var(--crema);
-      box-shadow: 0 20px 80px #0005;
-      overflow: auto;
+      overflow-y: auto;
     }
 
-    .admin-cabecera {
+    .panel-cabecera {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
 
-    .admin-cabecera h2 { margin: 0; }
+    .panel-cabecera h2 { margin: 0; }
 
     .cerrar {
       border: 0;
       background: transparent;
       color: var(--texto);
-      font-size: 1.8rem;
+      font-size: 2rem;
       cursor: pointer;
     }
 
-    .admin-seccion {
-      margin: 20px 0;
+    .panel-seccion {
+      margin: 18px 0;
       padding: 18px;
       border: 1px solid #f0e0e4;
-      border-radius: 14px;
+      border-radius: 12px;
       background: white;
     }
 
-    .admin-seccion h3 { margin-top: 0; }
-
     .cita {
       margin: 12px 0;
-      padding: 14px;
+      padding: 12px;
       border-left: 4px solid var(--rosa);
       border-radius: 8px;
       background: var(--rosa-claro);
@@ -327,21 +313,21 @@
     .cita button {
       margin-top: 8px;
       border: 0;
+      background: transparent;
       color: var(--rosa-oscuro);
-      background: none;
       text-decoration: underline;
       cursor: pointer;
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 720px) {
       header { flex-direction: column; }
       nav { justify-content: center; gap: 12px; }
-      .portada { grid-template-columns: 1fr; padding: 60px 6%; }
-      .foto { min-height: 230px; }
-      section { padding: 56px 6%; }
+      .portada { grid-template-columns: 1fr; padding: 55px 6%; }
+      .decoracion { min-height: 220px; }
+      section { padding: 55px 6%; }
       .servicios { grid-template-columns: 1fr; }
       .campos { grid-template-columns: 1fr; }
-      .ancho-completo { grid-column: auto; }
+      .ancho { grid-column: auto; }
     }
   </style>
 </head>
@@ -349,8 +335,7 @@
 <body>
   <header>
     <a class="marca" href="#inicio">COSMIATRIA LAYA</a>
-
-    <nav aria-label="Navegación principal">
+    <nav>
       <a href="#inicio">Inicio</a>
       <a href="#servicios">Tratamientos</a>
       <a href="#acerca">Nosotras</a>
@@ -365,38 +350,29 @@
         <span class="etiqueta">Cosmiatría y cuidado de la piel</span>
         <h1 id="titulo-portada">Tu piel, en manos expertas</h1>
         <p id="texto-portada">
-          Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte
-          bien contigo misma.
+          Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.
         </p>
         <a class="boton" href="#agenda">Agenda tu cita</a>
       </div>
-
-      <div class="foto" aria-label="Decoración">✿</div>
+      <div class="decoracion" aria-hidden="true">✿</div>
     </section>
 
     <section id="servicios">
       <h2 class="titulo">Nuestros tratamientos</h2>
-      <p class="intro">
-        Elige el servicio que te interesa y solicita el día y horario que prefieres.
-      </p>
+      <p class="intro">Conoce nuestros servicios y solicita la cita que mejor te convenga.</p>
       <div class="servicios" id="lista-servicios"></div>
     </section>
 
     <section class="acerca" id="acerca">
       <h2 class="titulo">Un espacio para ti</h2>
       <p id="texto-acerca">
-        En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una
-        atención cercana y personalizada. Cada piel es diferente; por eso,
-        conversamos contigo para conocer tus necesidades antes de recomendar
-        un tratamiento.
+        En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.
       </p>
     </section>
 
     <section class="agenda" id="agenda">
       <h2 class="titulo">Agenda tu cita</h2>
-      <p class="intro">
-        Completa tus datos y solicita la fecha y hora que prefieres.
-      </p>
+      <p class="intro">Completa tus datos y solicita la fecha y hora que prefieres.</p>
 
       <form class="formulario" id="formulario-cita">
         <div class="campos">
@@ -430,26 +406,22 @@
             <input id="hora" name="hora" type="time" required>
           </div>
 
-          <div class="campo ancho-completo">
+          <div class="campo ancho">
             <label for="comentarios">Comentarios (opcional)</label>
-            <textarea id="comentarios" name="comentarios" placeholder="Escribe aquí tu consulta."></textarea>
+            <textarea id="comentarios" name="comentarios"></textarea>
           </div>
 
-          <div class="campo ancho-completo">
+          <div class="campo ancho">
             <button class="boton" type="submit">Solicitar cita</button>
           </div>
         </div>
-
-        <p class="nota">
-          La solicitud queda pendiente de confirmación por parte de COSMIATRIA LAYA.
-        </p>
+        <p class="nota">La cita queda pendiente de confirmación por COSMIATRIA LAYA.</p>
       </form>
     </section>
 
-    <section class="contacto" id="contacto">
+    <section id="contacto">
       <h2 class="titulo">Conversemos</h2>
       <p class="intro">Síguenos o escríbenos por tu medio favorito.</p>
-
       <div class="redes">
         <a class="red-social" id="enlace-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a class="red-social" id="enlace-telegram" href="#" target="_blank" rel="noopener">Telegram</a>
@@ -462,42 +434,36 @@
 
   <footer>
     <div>© <span id="anio"></span> COSMIATRIA LAYA. Todos los derechos reservados.</div>
-    <button class="admin-acceso" id="abrir-admin" type="button">
-      Acceso administradora
-    </button>
+    <button
+      class="admin-acceso"
+      type="button"
+      onclick="abrirPanelAdmin()"
+    >Acceso administradora</button>
   </footer>
 
   <!-- Panel de administración -->
-  <div
-    id="ventana-admin"
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="titulo-admin"
-    hidden
-  >
-    <div class="modal-contenido">
-      <div class="admin-cabecera">
-        <h2 id="titulo-admin">Panel de administración</h2>
-        <button class="cerrar" id="cerrar-admin" type="button" aria-label="Cerrar">×</button>
+  <div id="panel-admin" role="dialog" aria-modal="true" aria-label="Panel de administración">
+    <div class="panel-contenido">
+      <div class="panel-cabecera">
+        <h2>Administración de COSMIATRIA LAYA</h2>
+        <button class="cerrar" type="button" onclick="cerrarPanelAdmin()" aria-label="Cerrar">×</button>
       </div>
 
-      <div id="login-admin">
-        <p>Inicia sesión para administrar la página.</p>
+      <div id="zona-login">
+        <p>Ingresa la contraseña de administradora.</p>
         <form id="formulario-login">
           <div class="campo">
-            <label for="clave-admin">Contraseña</label>
-            <input id="clave-admin" type="password" autocomplete="current-password" required>
+            <label for="contrasena-admin">Contraseña</label>
+            <input id="contrasena-admin" type="password" autocomplete="current-password" required>
           </div>
           <button class="boton" type="submit">Iniciar sesión</button>
-          <p id="error-login" class="nota" role="alert"></p>
+          <p id="mensaje-login" class="nota" role="alert"></p>
         </form>
       </div>
 
-      <div id="contenido-admin" hidden>
-        <div class="admin-seccion">
-          <h3>Editar contenido</h3>
-
+      <div id="zona-admin" style="display:none">
+        <div class="panel-seccion">
+          <h3>Editar página</h3>
           <form id="formulario-edicion">
             <div class="campo">
               <label for="editar-titulo">Título principal</label>
@@ -505,38 +471,40 @@
             </div>
 
             <div class="campo">
-              <label for="editar-portada">Descripción principal</label>
-              <textarea id="editar-portada" required></textarea>
+              <label for="editar-descripcion">Descripción principal</label>
+              <textarea id="editar-descripcion" required></textarea>
             </div>
 
             <div class="campo">
-              <label for="editar-acerca">Texto “Un espacio para ti”</label>
+              <label for="editar-acerca">Texto de presentación</label>
               <textarea id="editar-acerca" required></textarea>
             </div>
 
-            <h3>Tratamientos</h3>
-            <p class="nota">Escribe un tratamiento por línea con este formato: Nombre | Descripción</p>
             <div class="campo">
+              <label for="editar-servicios">Tratamientos, uno por línea: Nombre | Descripción</label>
               <textarea id="editar-servicios" required></textarea>
             </div>
 
-            <h3>Enlaces de contacto</h3>
             <div class="campo">
-              <label for="editar-whatsapp">WhatsApp (por ejemplo, https://wa.me/521...)</label>
+              <label for="editar-whatsapp">Enlace de WhatsApp (https://wa.me/...)</label>
               <input id="editar-whatsapp" type="url">
             </div>
+
             <div class="campo">
-              <label for="editar-telegram">Telegram (enlace completo)</label>
+              <label for="editar-telegram">Enlace de Telegram</label>
               <input id="editar-telegram" type="url">
             </div>
+
             <div class="campo">
-              <label for="editar-instagram">Instagram (enlace completo)</label>
+              <label for="editar-instagram">Enlace de Instagram</label>
               <input id="editar-instagram" type="url">
             </div>
+
             <div class="campo">
-              <label for="editar-facebook">Facebook (enlace completo)</label>
+              <label for="editar-facebook">Enlace de Facebook</label>
               <input id="editar-facebook" type="url">
             </div>
+
             <div class="campo">
               <label for="editar-correo">Correo de contacto</label>
               <input id="editar-correo" type="email">
@@ -546,43 +514,42 @@
           </form>
         </div>
 
-        <div class="admin-seccion">
+        <div class="panel-seccion">
           <h3>Solicitudes de citas</h3>
           <div id="lista-citas"></div>
+          <p class="nota">
+            En esta versión solo aparecen las solicitudes guardadas en el mismo navegador.
+          </p>
         </div>
 
-        <button class="boton" id="cerrar-sesion" type="button">Cerrar sesión</button>
+        <button class="boton" type="button" onclick="cerrarSesionAdmin()">Cerrar sesión</button>
       </div>
     </div>
   </div>
 
   <script>
     /*
-      DEMOSTRACIÓN PARA GITHUB PAGES:
-      La contraseña, cambios y citas se guardan en el navegador, no en un servidor.
-      La contraseña es visible en el código y los datos no se comparten entre dispositivos.
-      Para un sitio real se necesita una base de datos y autenticación segura.
+      CONFIGURACIÓN:
+      Cambia la contraseña y los enlaces de ejemplo antes de publicar.
+
+      IMPORTANTE:
+      GitHub Pages solo publica páginas estáticas. Esta contraseña no es segura:
+      cualquier persona puede encontrarla en el código. Las citas y los cambios
+      se guardan solo en el navegador que los creó; no se comparten entre clientes
+      y administradora. Para un sitio real necesitas servidor, base de datos y
+      autenticación segura.
     */
 
     const ADMIN_PASSWORD = "Laya2026!";
 
-    const contenidoInicial = {
+    const datosIniciales = {
       titulo: "Tu piel, en manos expertas",
-      portada: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
+      descripcion: "Tratamientos personalizados para cuidar tu piel y ayudarte a sentirte bien contigo misma.",
       acerca: "En COSMIATRIA LAYA creemos que el cuidado de la piel comienza con una atención cercana y personalizada. Cada piel es diferente; por eso, conversamos contigo para conocer tus necesidades antes de recomendar un tratamiento.",
       servicios: [
-        {
-          nombre: "Limpieza facial",
-          descripcion: "Un cuidado profundo para ayudar a mantener tu piel limpia y fresca."
-        },
-        {
-          nombre: "Tratamiento personalizado",
-          descripcion: "Una opción adaptada a las necesidades y objetivos de tu piel."
-        },
-        {
-          nombre: "Hidratación facial",
-          descripcion: "Un momento de cuidado para devolverle confort e hidratación a tu piel."
-        }
+        { nombre: "Limpieza facial", descripcion: "Un cuidado profundo para ayudar a mantener tu piel limpia y fresca." },
+        { nombre: "Tratamiento personalizado", descripcion: "Una opción adaptada a las necesidades y objetivos de tu piel." },
+        { nombre: "Hidratación facial", descripcion: "Un momento de cuidado para devolverle confort e hidratación a tu piel." }
       ],
       whatsapp: "https://wa.me/5210000000000",
       telegram: "https://t.me/",
@@ -591,45 +558,65 @@
       correo: "hola@cosmiatrialaya.com"
     };
 
-    function leer(clave, valorInicial) {
+    function leerDato(clave, valorPredeterminado) {
       try {
-        const valor = JSON.parse(localStorage.getItem(clave));
-        return valor ?? valorInicial;
-      } catch {
-        return valorInicial;
+        const guardado = localStorage.getItem(clave);
+        return guardado ? JSON.parse(guardado) : valorPredeterminado;
+      } catch (error) {
+        return valorPredeterminado;
       }
     }
 
-    function guardar(clave, valor) {
+    function guardarDato(clave, valor) {
       localStorage.setItem(clave, JSON.stringify(valor));
     }
 
-    const porId = id => document.getElementById(id);
-    let contenido = leer("laya_contenido", contenidoInicial);
-    let citas = leer("laya_citas", []);
+    let datosPagina = leerDato("laya_datos_pagina", datosIniciales);
+    let solicitudes = leerDato("laya_solicitudes", []);
 
-    const ventana = porId("ventana-admin");
+    function porId(id) {
+      return document.getElementById(id);
+    }
 
-    porId("anio").textContent = new Date().getFullYear();
+    function abrirPanelAdmin() {
+      porId("panel-admin").style.display = "flex";
+      porId("zona-login").style.display = "block";
+      porId("zona-admin").style.display = "none";
+      porId("mensaje-login").textContent = "";
+      porId("contrasena-admin").value = "";
+      setTimeout(function () {
+        porId("contrasena-admin").focus();
+      }, 50);
+    }
 
-    function mostrarContenido() {
-      porId("titulo-portada").textContent = contenido.titulo;
-      porId("texto-portada").textContent = contenido.portada;
-      porId("texto-acerca").textContent = contenido.acerca;
+    function cerrarPanelAdmin() {
+      porId("panel-admin").style.display = "none";
+    }
 
-      const listaServicios = porId("lista-servicios");
-      const selectorTratamientos = porId("tratamiento");
+    function cerrarSesionAdmin() {
+      porId("zona-admin").style.display = "none";
+      porId("zona-login").style.display = "block";
+      cerrarPanelAdmin();
+    }
 
-      listaServicios.replaceChildren();
-      selectorTratamientos.replaceChildren();
+    function mostrarPagina() {
+      porId("anio").textContent = new Date().getFullYear();
+      porId("titulo-portada").textContent = datosPagina.titulo;
+      porId("texto-portada").textContent = datosPagina.descripcion;
+      porId("texto-acerca").textContent = datosPagina.acerca;
 
-      contenido.servicios.forEach((servicio, indice) => {
+      const contenedorServicios = porId("lista-servicios");
+      const selector = porId("tratamiento");
+      contenedorServicios.innerHTML = "";
+      selector.innerHTML = "";
+
+      datosPagina.servicios.forEach(function (servicio, indice) {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta";
 
         const icono = document.createElement("div");
-        icono.className = "icono";
         icono.textContent = ["✿", "♡", "✧"][indice % 3];
+        icono.style.fontSize = "2rem";
 
         const titulo = document.createElement("h3");
         titulo.textContent = servicio.nombre;
@@ -638,65 +625,58 @@
         descripcion.textContent = servicio.descripcion;
 
         tarjeta.append(icono, titulo, descripcion);
-        listaServicios.appendChild(tarjeta);
+        contenedorServicios.appendChild(tarjeta);
 
         const opcion = document.createElement("option");
         opcion.value = servicio.nombre;
         opcion.textContent = servicio.nombre;
-        selectorTratamientos.appendChild(opcion);
+        selector.appendChild(opcion);
       });
 
-      const enlaces = {
-        "enlace-whatsapp": contenido.whatsapp,
-        "enlace-telegram": contenido.telegram,
-        "enlace-instagram": contenido.instagram,
-        "enlace-facebook": contenido.facebook
-      };
+      ponerEnlace("enlace-whatsapp", datosPagina.whatsapp);
+      ponerEnlace("enlace-telegram", datosPagina.telegram);
+      ponerEnlace("enlace-instagram", datosPagina.instagram);
+      ponerEnlace("enlace-facebook", datosPagina.facebook);
 
-      for (const [id, url] of Object.entries(enlaces)) {
-        const enlace = porId(id);
-        enlace.href = url || "#";
-        enlace.hidden = !url;
-      }
-
-      const correo = porId("enlace-correo");
-      correo.href = contenido.correo ? `mailto:${contenido.correo}` : "#";
-      correo.hidden = !contenido.correo;
+      porId("enlace-correo").href = datosPagina.correo
+        ? "mailto:" + datosPagina.correo
+        : "#";
     }
 
-    function cargarEdicion() {
-      porId("editar-titulo").value = contenido.titulo;
-      porId("editar-portada").value = contenido.portada;
-      porId("editar-acerca").value = contenido.acerca;
+    function ponerEnlace(id, url) {
+      const enlace = porId(id);
+      enlace.href = url || "#";
+    }
 
-      porId("editar-servicios").value = contenido.servicios
-        .map(servicio => `\({servicio.nombre} | \){servicio.descripcion}`)
+    function cargarFormularioEdicion() {
+      porId("editar-titulo").value = datosPagina.titulo;
+      porId("editar-descripcion").value = datosPagina.descripcion;
+      porId("editar-acerca").value = datosPagina.acerca;
+      porId("editar-servicios").value = datosPagina.servicios
+        .map(function (servicio) {
+          return servicio.nombre + " | " + servicio.descripcion;
+        })
         .join("\n");
 
-      porId("editar-whatsapp").value = contenido.whatsapp;
-      porId("editar-telegram").value = contenido.telegram;
-      porId("editar-instagram").value = contenido.instagram;
-      porId("editar-facebook").value = contenido.facebook;
-      porId("editar-correo").value = contenido.correo;
+      porId("editar-whatsapp").value = datosPagina.whatsapp;
+      porId("editar-telegram").value = datosPagina.telegram;
+      porId("editar-instagram").value = datosPagina.instagram;
+      porId("editar-facebook").value = datosPagina.facebook;
+      porId("editar-correo").value = datosPagina.correo;
     }
 
-    function mostrarCitas() {
-      const lista = porId("lista-citas");
-      lista.replaceChildren();
+    function mostrarSolicitudes() {
+      const contenedor = porId("lista-citas");
+      contenedor.innerHTML = "";
 
-      if (citas.length === 0) {
-        lista.textContent = "Todavía no hay solicitudes de citas en este navegador.";
+      if (solicitudes.length === 0) {
+        contenedor.textContent = "Todavía no hay solicitudes de citas en este navegador.";
         return;
       }
 
-      citas.forEach((cita, indice) => {
-        const caja = document.createElement("div");
-        caja.className = "cita";
+      solicitudes.forEach(function (cita, indice) {
+        const elemento = document.createElement("div");
+        elemento.className = "cita";
 
-        const datos = document.createElement("div");
-        datos.textContent =
-          `\({cita.nombre} — \){cita.tratamiento} — \({cita.fecha} a las \){cita.hora}`;
-
-        const contacto = document.createElement("div");
-        contacto.textContent =
-          `Teléfono: \({cita.telefono}\){cita.correo ? " | Correo:
+        const datos = document.createElement("p");
+        datos.textContent = cita.nombre + " — " + cita.tratamiento +
